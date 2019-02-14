@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.tcp.mozzi.back.mapper.UserMapper">
+<mapper namespace="com.tcp.mozzi.back.mapper.example.UserMapperExample">
     <select id="getUser" resultType="java.util.HashMap">
         select *
         from user;

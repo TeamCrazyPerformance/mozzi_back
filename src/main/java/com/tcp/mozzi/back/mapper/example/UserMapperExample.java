@@ -1,4 +1,4 @@
-package com.tcp.mozzi.back.mapper;
+package com.tcp.mozzi.back.mapper.example;
 
 import org.mapstruct.Mapper;
 import org.springframework.context.annotation.Bean;
@@ -9,7 +9,7 @@ import java.util.Map;
 
 @Repository
 @Mapper
-public interface UserMapper {
+public interface UserMapperExample {
 
     List<Map<String, Object>> getUser();
 }
