@@ -20,7 +20,7 @@ public class UserControllerExample {
         this.userServiceExample = userServiceExample;
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    @RequestMapping(value = "/mybatis", method = RequestMethod.GET)
     @ResponseBody
     public List<Map<String, Object>> getUser(){
 
