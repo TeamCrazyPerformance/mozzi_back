@@ -2,5 +2,8 @@ spring:
   profiles:
     active: local
 mybatis:
+  # mybatis에서 mapping type을 짧게 쓰기 위한 설정
   type-aliases-package: com.tcp.mozzi.back.mapper
   mapper-locations: mybatis/mapper/**/*.xml
+# mapper단 로깅
+logging.level.com.tcp.mozzi.back.mapper: TRACE
