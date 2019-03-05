@@ -20,7 +20,7 @@ public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer user_id;
+    private Integer id;
     private String name;
     private String password;
     private UserStatus status;
