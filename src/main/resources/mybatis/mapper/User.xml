@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tcp.mozzi.back.mapper.user.UserMapper">
+    <select id="selectUserById" resultType="com.tcp.mozzi.back.domain.user.User">
+        SELECT user_id
+              ,create_at
+              ,modify_at
+              ,name
+              ,password
+              ,status
+              ,nickname
+              ,student_number
+              ,phone_number
+              ,email
+              ,birthday
+        FROM user
+        WHERE user_id = #{id}
+    </select>
+
+    <select id="selectUsers" resultType="com.tcp.mozzi.back.domain.user.User">
+        SELECT user_id
+              ,create_at
+              ,modify_at
+              ,name
+              ,password
+              ,status
+              ,nickname
+              ,student_number
+              ,phone_number
+              ,email
+              ,birthday
+        FROM user
+    </select>
+
+    <insert id="insertUser" >
+        INSERT INTO user (create_at, modify_at, name, password, status, nickname, student_number, phone_number, email, birthday)
+        value (#{createdDate}, #{modifiedDate}, #{name}, #{password}, #{status}, #{nickname}, #{studentNum}, #{phoneNum}, #{email}, #{birthday})
+    </insert>
+
+    <update id="updateUser">
+        UPDATE user
+        SET modify_at = #{modifiedDate}, name = #{name}, password = #{password}, status = #{status}, nickname = #{nickname}, student_number = #{studentNum}, phone_number = #{phoneNum}, email = #{email}, birthday = #{birthday}
+        WHERE user_id = #{id}
+    </update>
+
+    <delete id="deleteUserById">
+        DELETE FROM user
+        WHERE user_id = #{id}
+    </delete>
+</mapper>
