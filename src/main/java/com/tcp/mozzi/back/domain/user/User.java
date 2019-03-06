@@ -2,6 +2,7 @@ package com.tcp.mozzi.back.domain.user;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -13,6 +14,8 @@ import java.util.Date;
 public class User {
 
     private Integer id;
+    private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
     private String name;
     private String password;
     private UserStatus status;

@@ -46,7 +46,9 @@ public class UserServiceTest {
 
     @Test
     public void getFirstUser() {
-        User user = userService.getUserById(1);
+        List<User> users = userService.getUsers();
+
+        User user = userService.getUserById(users.get(0).getId());
         log.info("First User : {}", user);
     }
 
@@ -58,17 +60,21 @@ public class UserServiceTest {
 
     @Test
     public void updateFirstUser() {
-        User user = userService.getUserById(1);
+        List<User> users = userService.getUsers();
+
+        User user = userService.getUserById(users.get(0).getId());
         user.setPhoneNum("01098765432");
         userService.updateUser(user);
 
-        user = userService.getUserById(1);
+        user = userService.getUserById(users.get(0).getId());
         log.info("First User : {}", user);
     }
 
     @After
     public void deleteFirstUser() {
-        userService.deleteUserById(1);
+        List<User> users = userService.getUsers();
+
+        userService.deleteUserById(users.get(0).getId());
     }
 
 }
