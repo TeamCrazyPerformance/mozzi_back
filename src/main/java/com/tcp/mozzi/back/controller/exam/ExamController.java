@@ -6,6 +6,7 @@ import com.tcp.mozzi.back.dto.exam.GetExamListDto;
 import com.tcp.mozzi.back.service.exam.ExamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.yaml.snakeyaml.reader.StreamReader;
 
 @RequestMapping("/exam")
 @RestController

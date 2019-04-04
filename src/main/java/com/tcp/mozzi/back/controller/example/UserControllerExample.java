@@ -1,5 +1,6 @@
 package com.tcp.mozzi.back.controller.example;
 
+import com.tcp.mozzi.back.security.JwtTokenUtil;
 import com.tcp.mozzi.back.service.UserServiceExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,9 @@ public class UserControllerExample {
 
     @Autowired
     private UserServiceExample userServiceExample;
+
+    @Autowired
+    private JwtTokenUtil tokenUtil;
 
     UserControllerExample(UserServiceExample userServiceExample){
         this.userServiceExample = userServiceExample;

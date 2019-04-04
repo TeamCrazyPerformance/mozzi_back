@@ -19,12 +19,12 @@ public class ExamServiceImplement implements ExamService {
         this.examMapper = examMapper;
     }
 
+    @Override
     public GetExamListDto getExamList(int page, int limit){
         List<Exam> temp = examMapper.getExamList(page, limit);
 
         GetExamListDto dto = new GetExamListDto();
 
-        System.out.println(temp.get(0).getCreatedDate());
 
         dto.setSuccess("true");
         dto.setExams(examMapper.getExamList(page, limit));
