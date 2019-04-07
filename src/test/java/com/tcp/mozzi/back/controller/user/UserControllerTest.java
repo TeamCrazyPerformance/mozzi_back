@@ -1,6 +1,6 @@
 package com.tcp.mozzi.back.controller.user;
 
-import com.tcp.mozzi.back.dto.user.RegisterUserDto;
+import com.tcp.mozzi.back.dto.user.RegisterUserRequestDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -26,7 +26,7 @@ public class UserControllerTest {
 
     @Test
     public void registerUserOne() throws ParseException {
-        RegisterUserDto dto = new RegisterUserDto();
+        RegisterUserRequestDto dto = new RegisterUserRequestDto();
         dto.setName("김현욱");
         dto.setPassword("password");
         dto.setNickname("KUvH");
