@@ -1,6 +1,7 @@
 package com.tcp.mozzi.back.controller.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tcp.mozzi.back.dto.user.CheckUserRequestDto;
 import com.tcp.mozzi.back.dto.user.RegisterUserRequestDto;
 import com.tcp.mozzi.back.service.user.UserService;
 import org.junit.Test;
@@ -13,8 +14,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.doNothing;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(UserController.class)
@@ -80,5 +83,31 @@ public class UserControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(dto)))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void checkUsernameWhenExist() throws Exception {
+        CheckUserRequestDto dto = new CheckUserRequestDto("kuvh");
+
+        when(userService.isExistUserByName("kuvh")).thenReturn(true);
+        mockMvc.perform(MockMvcRequestBuilders.put("/user/check")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.useable", is(false)));
+    }
+
+    @Test
+    public void checkUsernameWhenNotExist() throws Exception {
+        CheckUserRequestDto dto = new CheckUserRequestDto("kuvh");
+
+        when(userService.isExistUserByName("kuvh")).thenReturn(false);
+        mockMvc.perform(MockMvcRequestBuilders.put("/user/check")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.useable", is(true)));
     }
 }

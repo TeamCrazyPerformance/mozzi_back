@@ -14,4 +14,5 @@ public interface UserMapper {
     void insertUser(User user);
     void updateUser(User user);
     void deleteUserById(Integer id);
+    boolean isExistUserByName(String name);
 }

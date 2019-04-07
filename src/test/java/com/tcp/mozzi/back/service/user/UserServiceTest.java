@@ -15,6 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @Transactional
@@ -68,6 +71,11 @@ public class UserServiceTest {
 
         user = userService.getUserById(users.get(0).getId());
         log.info("First User : {}", user);
+    }
+
+    @Test
+    public void checkUsernameExist() {
+        assertTrue(userService.isExistUserByName("김현욱"));
     }
 
     @After
