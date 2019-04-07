@@ -3,18 +3,12 @@ package com.tcp.mozzi.back.domain.exam;
 import com.tcp.mozzi.back.domain.BaseTimeEntity;
 import lombok.*;
 
-import javax.persistence.*;
-import java.sql.Timestamp;
-
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
 @Setter
-@Entity
 public class Exam extends BaseTimeEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int exam_id;
     private int author;
     private String year;
@@ -24,7 +18,6 @@ public class Exam extends BaseTimeEntity {
     private String term;
     private String name;
     private String professor;
-    @Column(nullable = false, columnDefinition = "MEDIUMTEXT")
     private String content;
 
     @Builder
