@@ -3,6 +3,7 @@ package com.tcp.mozzi.back.service.user;
 import com.tcp.mozzi.back.domain.user.User;
 import com.tcp.mozzi.back.mapper.user.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,9 @@ public class UserServiceImpl implements UserService {
         this.userMapper = userMapper;
     }
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public User getUserById(Integer id) {
         return userMapper.selectUserById(id);
@@ -31,11 +35,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addUser(User user) {
+        String encryptedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
         userMapper.insertUser(user);
     }
 
     @Override
     public void updateUser(User user) {
+        String encryptedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
         userMapper.updateUser(user);
     }
 
