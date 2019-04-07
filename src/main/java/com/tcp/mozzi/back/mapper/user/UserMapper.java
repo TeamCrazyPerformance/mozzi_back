@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 public interface UserMapper {
     User selectUserById(Integer id);
+    User selectUserByName(String name);
     List<User> selectUsers();
     void insertUser(User user);
     void updateUser(User user);

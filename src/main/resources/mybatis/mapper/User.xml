@@ -27,6 +27,22 @@
         WHERE user_id = #{id}
     </select>
 
+    <select id="selectUserByName" resultMap="baseUserResultMap">
+        SELECT user_id
+              ,create_at
+              ,modify_at
+              ,name
+              ,password
+              ,status
+              ,nickname
+              ,student_number
+              ,phone_number
+              ,email
+              ,birthday
+        FROM user
+        WHERE name = #{name}
+    </select>
+
     <select id="selectUsers" resultMap="baseUserResultMap">
         SELECT user_id
               ,create_at
