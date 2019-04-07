@@ -1,31 +1,36 @@
 package com.tcp.mozzi.back.controller.user;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tcp.mozzi.back.dto.user.RegisterUserRequestDto;
+import com.tcp.mozzi.back.service.user.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.text.ParseException;
+import static org.mockito.Mockito.doNothing;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
 @RunWith(SpringRunner.class)
+@WebMvcTest(UserController.class)
 public class UserControllerTest {
 
-    private Logger log = LoggerFactory.getLogger(this.getClass());
-
-    private UserController userController;
+    @Autowired
+    private MockMvc mockMvc;
 
     @Autowired
-    public void setUserController(UserController userController) {
-        this.userController = userController;
-    }
+    private ObjectMapper objectMapper;
+
+    @MockBean
+    private UserService userService;
 
     @Test
-    public void registerUserOne() throws ParseException {
+    public void registerUserOne() throws Exception {
         RegisterUserRequestDto dto = new RegisterUserRequestDto();
         dto.setName("김현욱");
         dto.setPassword("password");
@@ -35,6 +40,45 @@ public class UserControllerTest {
         dto.setEmail("kuvh@live.co.kr");
         dto.setBirthday("1997-02-01");
 
-        userController.registerUser(dto);
+        doNothing().when(userService).addUser(dto.toEntity());
+        mockMvc.perform(MockMvcRequestBuilders.post("/user")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void registerUserWhenInvalidEmail() throws Exception {
+        RegisterUserRequestDto dto = new RegisterUserRequestDto();
+        dto.setName("김현욱");
+        dto.setPassword("password");
+        dto.setNickname("KUvH");
+        dto.setStudentNumber("16100000");
+        dto.setPhoneNumber("010-1234-5678");
+        dto.setEmail("kuvhlive.co.kr");
+        dto.setBirthday("1997-02-01");
+
+        doNothing().when(userService).addUser(dto.toEntity());
+        mockMvc.perform(MockMvcRequestBuilders.post("/user")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void registerUserWhenEmptyName() throws Exception {
+        RegisterUserRequestDto dto = new RegisterUserRequestDto();
+        dto.setPassword("password");
+        dto.setNickname("KUvH");
+        dto.setStudentNumber("16100000");
+        dto.setPhoneNumber("010-1234-5678");
+        dto.setEmail("kuvhlive.co.kr");
+        dto.setBirthday("1997-02-01");
+
+        doNothing().when(userService).addUser(dto.toEntity());
+        mockMvc.perform(MockMvcRequestBuilders.post("/user")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(status().isBadRequest());
     }
 }
