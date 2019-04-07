@@ -9,7 +9,7 @@ import java.util.Date;
 @Setter
 @Builder
 @ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor
 public class User {
 
