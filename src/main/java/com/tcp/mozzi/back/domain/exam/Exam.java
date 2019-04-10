@@ -2,12 +2,11 @@ package com.tcp.mozzi.back.domain.exam;
 
 import lombok.*;
 
-
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
 @Setter
-public class Exam{
+public class Exam {
 
     private int exam_id;
     private int author;

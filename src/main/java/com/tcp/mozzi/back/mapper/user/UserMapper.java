@@ -1,12 +1,19 @@
 package com.tcp.mozzi.back.mapper.user;
 
-import com.tcp.mozzi.back.dto.user.UserDTO;
-import org.apache.ibatis.annotations.Param;
+import com.tcp.mozzi.back.domain.user.User;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Repository;
 
-@Repository
+import java.util.List;
+
 @Mapper
+@Repository
 public interface UserMapper {
-    void createUser(UserDTO user);
+    User selectUserById(Integer id);
+    User selectUserByName(String name);
+    List<User> selectUsers();
+    void insertUser(User user);
+    void updateUser(User user);
+    void deleteUserById(Integer id);
+    boolean isExistUserByName(String name);
 }

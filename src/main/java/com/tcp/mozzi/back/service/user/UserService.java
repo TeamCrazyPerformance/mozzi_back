@@ -1,10 +1,15 @@
 package com.tcp.mozzi.back.service.user;
 
-import com.tcp.mozzi.back.dto.user.UserDTO;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import com.tcp.mozzi.back.domain.user.User;
 
-public interface UserService extends UserDetailsService {
-    boolean createUser(UserDTO user);
-    PasswordEncoder passwordEncoder();
+import java.util.List;
+
+public interface UserService {
+    User getUserById(Integer id);
+    List<User> getUsers();
+    void addUser(User user);
+    void updateUser(User user);
+    void deleteUserById(Integer id);
+    boolean isExistUserByName(String name);
+    User userDetailById(Integer id);
 }

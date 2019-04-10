@@ -3,8 +3,84 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.tcp.mozzi.back.mapper.user.UserMapper">
-    <insert id="createUser" parameterType="com.tcp.mozzi.back.dto.user.UserDTO">
-        INSERT INTO user
-        VALUE (0, now(), now(), #{name}, #{password}, "WAIT", #{nickname}, #{studentNumber}, #{phoneNumber}, #{email}, #{birthday})
+    <resultMap id="baseUserResultMap" type="com.tcp.mozzi.back.domain.user.User">
+        <id column="user_id" property="id" />
+        <result column="create_at" property="createdAt" />
+        <result column="modify_at" property="modifiedAt" />
+        <result column="student_number" property="studentNum" />
+        <result column="phone_number" property="phoneNum" />
+    </resultMap>
+
+    <select id="selectUserById" resultMap="baseUserResultMap">
+        SELECT user_id
+              ,role
+              ,create_at
+              ,modify_at
+              ,name
+              ,password
+              ,status
+              ,nickname
+              ,student_number
+              ,phone_number
+              ,email
+              ,birthday
+              ,allow
+        FROM user
+        WHERE user_id = #{id}
+    </select>
+
+    <select id="selectUserByName" resultMap="baseUserResultMap">
+        SELECT user_id
+              ,role
+              ,create_at
+              ,modify_at
+              ,name
+              ,password
+              ,status
+              ,nickname
+              ,student_number
+              ,phone_number
+              ,email
+              ,birthday
+              ,allow
+        FROM user
+        WHERE name = #{name}
+    </select>
+
+    <select id="selectUsers" resultMap="baseUserResultMap">
+        SELECT user_id
+              ,role
+              ,create_at
+              ,modify_at
+              ,name
+              ,password
+              ,status
+              ,nickname
+              ,student_number
+              ,phone_number
+              ,email
+              ,birthday
+              ,allow
+        FROM user
+    </select>
+
+    <insert id="insertUser" >
+        INSERT INTO user (role, create_at, modify_at, name, password, status, nickname, student_number, phone_number, email, birthday)
+        value ('USER', now(), now(), #{name}, #{password}, #{status}, #{nickname}, #{studentNum}, #{phoneNum}, #{email}, #{birthday})
     </insert>
+
+    <update id="updateUser">
+        UPDATE user
+        SET modify_at = now(), name = #{name}, password = #{password}, status = #{status}, nickname = #{nickname}, student_number = #{studentNum}, phone_number = #{phoneNum}, email = #{email}, birthday = #{birthday}, allow = #{allow}
+        WHERE user_id = #{id}
+    </update>
+
+    <delete id="deleteUserById">
+        DELETE FROM user
+        WHERE user_id = #{id}
+    </delete>
+
+    <select id="isExistUserByName" resultType="boolean">
+        SELECT EXISTS(SELECT 1 FROM user WHERE name = #{name})
+    </select>
 </mapper>
