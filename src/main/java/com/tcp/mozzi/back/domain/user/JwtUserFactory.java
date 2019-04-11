@@ -1,8 +1,12 @@
 package com.tcp.mozzi.back.domain.user;
 
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 public final class JwtUserFactory {
@@ -18,12 +22,10 @@ public final class JwtUserFactory {
                 user.getModifiedAt());
     }
 
-    /*
-    private static List<GrantedAuthority> mapToGrantedAuthorities(List<Authority> authorities) {
-        return authorities.stream()
-                .map(authority -> new SimpleGrantedAuthority(authority.getName().name()))
-                .collect(Collectors.toList());
-    }
-    */
+//    private static List<GrantedAuthority> mapToGrantedAuthorities(List<Authority> authorities) {
+//        return authorities.stream()
+//                .map(authority -> new SimpleGrantedAuthority(authority.getName().name()))
+//                .collect(Collectors.toList());
+//    }
 
 }

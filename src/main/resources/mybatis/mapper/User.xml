@@ -66,7 +66,7 @@
 
     <insert id="insertUser" >
         INSERT INTO user (role, create_at, modify_at, name, password, status, nickname, student_number, phone_number, email, birthday)
-        value ('USER', now(), now(), #{name}, #{password}, #{status}, #{nickname}, #{studentNum}, #{phoneNum}, #{email}, #{birthday})
+        value ('USER', now(), now(), #{name}, #{password}, 'WAIT', #{nickname}, #{studentNum}, #{phoneNum}, #{email}, #{birthday})
     </insert>
 
     <update id="updateUser">

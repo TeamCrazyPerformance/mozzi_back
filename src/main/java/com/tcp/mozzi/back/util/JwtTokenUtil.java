@@ -86,7 +86,6 @@ public class JwtTokenUtil implements Serializable {
         final Date expirationDate = calculateExpirationDate(createdDate);
 
         return Jwts.builder()
-//                .setClaims()
                 .claim("name", userDetail.getUsername())
                 .claim("id", userDetail.getId())
                 .claim("role", userDetail.getRole())
