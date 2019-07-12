@@ -18,7 +18,7 @@
     <select id="getWaitTotal" resultType="int">
         SELECT count(*)
         FROM user
-        WHERE status = 'WAIT'
+        WHERE status = 'wait'
     </select>
 
     <select id="selectWaitUsers" resultMap="baseUserResultMap">
@@ -36,7 +36,7 @@
               ,birthday
               ,allow
         FROM user
-        WHERE status = 'WAIT'
+        WHERE status = 'wait'
         limit #{page}, #{limit}
     </select>
 

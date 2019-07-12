@@ -17,10 +17,10 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        User user = userMapper.selectUserByName(name);
+        User user = userMapper.selectUserById(name);
 
         if (user == null) {
-            throw new UsernameNotFoundException(String.format("No user found with name '%s'.", name));
+            throw new UsernameNotFoundException(String.format("No user found with userId '%s'.", name));
         } else {
             return JwtUserFactory.create(user);
         }

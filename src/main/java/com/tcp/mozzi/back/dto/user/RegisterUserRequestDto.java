@@ -19,9 +19,9 @@ public class RegisterUserRequestDto {
 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-    @NotBlank(message = "'name' is required.")
-    @JsonProperty("name")
-    private String name;
+    @NotBlank(message = "'userId' is required.")
+    @JsonProperty("id")
+    private String id;
 
     @NotBlank(message = "'password' is required.")
     @JsonProperty("password")
@@ -31,9 +31,17 @@ public class RegisterUserRequestDto {
     @JsonProperty("nickname")
     private String nickname;
 
+    @NotBlank(message = "'name' is required.")
+    @JsonProperty("name")
+    private String name;
+
     @NotBlank(message = "'studentNumber' is required.")
     @JsonProperty("studentNumber")
     private String studentNumber;
+
+    @NotBlank(message ="'major' is required.")
+    @JsonProperty("major")
+    private String major;
 
     @NotBlank(message = "'phoneNumber' is required.")
     @JsonProperty("phoneNumber")
@@ -50,11 +58,13 @@ public class RegisterUserRequestDto {
 
     public User toEntity() {
         User user = new User();
-        user.setName(this.getName());
+        user.setId(this.getId());
         user.setPassword(this.getPassword());
-        user.setStatus(User.UserStatus.WAIT);
+        user.setStatus(User.UserStatus.wait);
         user.setNickname(this.getNickname());
+        user.setName(this.getName());
         user.setStudentNum(this.getStudentNumber());
+        user.setMajor(this.getMajor());
         user.setPhoneNum(this.getPhoneNumber());
         user.setEmail(this.getEmail());
         Date birthday = null;

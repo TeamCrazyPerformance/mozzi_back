@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class CheckUserRequestDto {
 
-    @NotBlank(message = "'name' is required.")
-    @JsonProperty("name")
+    @NotBlank(message = "'userId' is required.")
+    @JsonProperty("id")
     private String name;
 }

@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(Integer id) {
-        return userMapper.selectUserById(id);
+        return userMapper.selectUserByUserId(id);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User userDetailById(Integer id) {
         final String closed = "PRIVATE";
-        User user = userMapper.selectUserById(id);
+        User user = userMapper.selectUserByUserId(id);
         StringTokenizer allow = new StringTokenizer(user.getAllow(), ",");
         String temp;
         while(allow.hasMoreTokens()){

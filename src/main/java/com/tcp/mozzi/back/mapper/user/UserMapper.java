@@ -11,8 +11,8 @@ import java.util.List;
 @Mapper
 @Repository
 public interface UserMapper {
-    User selectUserById(Integer id);
-    User selectUserByName(String name);
+    User selectUserByUserId(Integer userId);
+    User selectUserById(String id);
     List<User> selectUsers();
     void insertUser(User user);
     void updateUser(User user);

@@ -33,11 +33,11 @@ public class JwtTokenUtil implements Serializable {
     private Long expiration;
 
     public String getUsernameFromToken(String token) {
-        return getAllClaimsFromToken(token).get("name").toString();
+        return getAllClaimsFromToken(token).get("id").toString();
     }
 
     public int getIdFromToken(String token){
-        return Integer.parseInt(getAllClaimsFromToken(token).get("id").toString());
+        return Integer.parseInt(getAllClaimsFromToken(token).get("userId").toString());
     }
 
     public String getRoleFromToken(String token) { return getAllClaimsFromToken(token).get("role").toString(); }
@@ -86,8 +86,8 @@ public class JwtTokenUtil implements Serializable {
         final Date expirationDate = calculateExpirationDate(createdDate);
 
         return Jwts.builder()
-                .claim("name", userDetail.getUsername())
-                .claim("id", userDetail.getId())
+                .claim("id", userDetail.getUsername())
+                .claim("userId", userDetail.getUserId())
                 .claim("role", userDetail.getRole())
                 .setIssuedAt(createdDate)
                 .setExpiration(expirationDate)

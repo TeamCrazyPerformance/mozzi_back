@@ -1,22 +1,18 @@
 package com.tcp.mozzi.back.domain.user;
 
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @NoArgsConstructor
 public final class JwtUserFactory {
 
     public static JwtUser create(User user) {
-        return new JwtUser(user.getId(),
+        return new JwtUser(user.getUserId(),
                 user.getRole().toString(),
-                user.getName(),
+                user.getId(),
                 user.getPassword(),
-                user.getStatus().equals(User.UserStatus.OK),
+                user.getStatus().equals(User.UserStatus.authorized),
                 new ArrayList<>(), //TODO: mapToGrantedAuthorities(user.getAuthorities())
                 user.getCreatedAt(),
                 user.getModifiedAt());
@@ -24,7 +20,7 @@ public final class JwtUserFactory {
 
 //    private static List<GrantedAuthority> mapToGrantedAuthorities(List<Authority> authorities) {
 //        return authorities.stream()
-//                .map(authority -> new SimpleGrantedAuthority(authority.getName().name()))
+//                .map(authority -> new SimpleGrantedAuthority(authority.getUserId().userId()))
 //                .collect(Collectors.toList());
 //    }
 

@@ -14,28 +14,30 @@ import java.util.Date;
 @AllArgsConstructor
 public class User {
 
-    private Integer id;
+    private Integer userId;
     private UserRole role;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-    private String name;
+    private String id;
     private String password;
+    private String name;
     private UserStatus status;
     private String nickname;
     private String studentNum;
+    private String major;
     private String phoneNum;
     private String email;
     private Date birthday;
     private String allow;
 
     public enum UserStatus {
-        OK,
-        WAIT
+        wait,
+        authorized
     }
 
     public enum UserRole {
-        USER,
-        ADMIN
+        user,
+        admin
     }
 
     public void updateUser(UpdateUserRequestDto updateUser){

@@ -7,17 +7,14 @@ import com.tcp.mozzi.back.service.user.UserService;
 import com.tcp.mozzi.back.util.JwtTokenUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
 
 @RequestMapping("/user")
 @RestController
@@ -38,7 +35,7 @@ public class UserController {
     @ResponseBody
     @ApiOperation(value = "가입신청", notes = "회원 가입 신청을 합니다.")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterUserRequestDto userDto) {
-        if(userService.isExistUserByName(userDto.getName())){
+        if(userService.isExistUserByName(userDto.getId())){
             return new ResponseEntity<>(new DefaultResponseDto(false), HttpStatus.BAD_REQUEST);
         }
         userService.addUser(userDto.toEntity());
@@ -59,7 +56,7 @@ public class UserController {
     public ResponseEntity<?> deleteUser(HttpServletRequest httpRequest){
         final String token = httpRequest.getHeader(tokenHeader).substring(7);
         System.out.println(jwtTokenUtil.getIdFromToken(token));
-//        userService.getUserById(Integer.parseInt(id));
+//        userService.getUserById(Integer.parseInt(userId));
 
         return new ResponseEntity<>(new DefaultResponseDto(false), HttpStatus.GONE);
     }

@@ -4,20 +4,40 @@
 
 <mapper namespace="com.tcp.mozzi.back.mapper.user.UserMapper">
     <resultMap id="baseUserResultMap" type="com.tcp.mozzi.back.domain.user.User">
-        <id column="user_id" property="id" />
+        <id column="user_id" property="userId" />
         <result column="create_at" property="createdAt" />
         <result column="modify_at" property="modifiedAt" />
         <result column="student_number" property="studentNum" />
         <result column="phone_number" property="phoneNum" />
     </resultMap>
 
+    <select id="selectUserByUserId" resultMap="baseUserResultMap">
+        SELECT user_id
+              ,role
+              ,create_at
+              ,modify_at
+              ,id
+              ,password
+              ,name
+              ,status
+              ,nickname
+              ,student_number
+              ,phone_number
+              ,email
+              ,birthday
+              ,allow
+        FROM user
+        WHERE user_id = #{userId}
+    </select>
+
     <select id="selectUserById" resultMap="baseUserResultMap">
         SELECT user_id
               ,role
               ,create_at
               ,modify_at
-              ,name
+              ,id
               ,password
+              ,name
               ,status
               ,nickname
               ,student_number
@@ -26,25 +46,7 @@
               ,birthday
               ,allow
         FROM user
-        WHERE user_id = #{id}
-    </select>
-
-    <select id="selectUserByName" resultMap="baseUserResultMap">
-        SELECT user_id
-              ,role
-              ,create_at
-              ,modify_at
-              ,name
-              ,password
-              ,status
-              ,nickname
-              ,student_number
-              ,phone_number
-              ,email
-              ,birthday
-              ,allow
-        FROM user
-        WHERE name = #{name}
+        WHERE id = #{id}
     </select>
 
     <select id="selectUsers" resultMap="baseUserResultMap">
@@ -52,8 +54,9 @@
               ,role
               ,create_at
               ,modify_at
-              ,name
+              ,id
               ,password
+              ,name
               ,status
               ,nickname
               ,student_number
@@ -65,19 +68,19 @@
     </select>
 
     <insert id="insertUser" >
-        INSERT INTO user (role, create_at, modify_at, name, password, status, nickname, student_number, phone_number, email, birthday)
-        value ('USER', now(), now(), #{name}, #{password}, 'WAIT', #{nickname}, #{studentNum}, #{phoneNum}, #{email}, #{birthday})
+        INSERT INTO user (role, create_at, modify_at, id, password, name, status, nickname, student_number, major, phone_number, email, birthday)
+        value ('user', now(), now(), #{id}, #{password}, #{name}, 'wait', #{nickname}, #{studentNum}, #{phoneNum}, #{major}, #{email}, #{birthday})
     </insert>
 
     <update id="updateUser">
         UPDATE user
-        SET modify_at = now(), name = #{name}, password = #{password}, status = #{status}, nickname = #{nickname}, student_number = #{studentNum}, phone_number = #{phoneNum}, email = #{email}, birthday = #{birthday}, allow = #{allow}
-        WHERE user_id = #{id}
+        SET modify_at = now(), id = #{id}, password = #{password}, name = #{name}, status = #{status}, nickname = #{nickname}, student_number = #{studentNum}, phone_number = #{phoneNum}, email = #{email}, birthday = #{birthday}, allow = #{allow}
+        WHERE user_id = #{userId}
     </update>
 
     <delete id="deleteUserById">
         DELETE FROM user
-        WHERE user_id = #{id}
+        WHERE user_id = #{userId}
     </delete>
 
     <select id="isExistUserByName" resultType="boolean">
