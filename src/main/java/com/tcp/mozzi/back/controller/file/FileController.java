@@ -30,14 +30,14 @@ public class FileController {
         String fileName = fileStorageService.storeFile(file);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/..")
+                .path("/downloadFile/")
                 .path(fileName)
                 .toUriString();
 
         return new UploadFileResponseDto(fileName, fileDownloadUri, file.getContentType(), file.getSize());
     }
 
-    @GetMapping("/downloadFile/{fileName: .+}")
+    @GetMapping("/downloadFile/{fileName:.+}")
     @ResponseBody
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request){
         Resource resource = fileStorageService.loadFileAsResource(fileName);
