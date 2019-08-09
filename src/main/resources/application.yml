@@ -1,6 +1,12 @@
 spring:
   profiles:
     active: prod
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 5MB
+      max-request-size: 10MB
 mybatis:
   # mybatis에서 mapping type을 짧게 쓰기 위한 설정
   type-aliases-package: com.tcp.mozzi.back.mapper
@@ -11,3 +17,5 @@ jwt:
   expiration: 86400
 # mapper단 로깅
 logging.level.com.tcp.mozzi.back.mapper: TRACE
+file:
+  upload-dir: ./upload_files
