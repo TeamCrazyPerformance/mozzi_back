@@ -1,6 +1,5 @@
-package com.tcp.mozzi.back.service.file;
+package com.tcp.mozzi.back.service.storage;
 
-import com.tcp.mozzi.back.config.FileStorageConfig;
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 

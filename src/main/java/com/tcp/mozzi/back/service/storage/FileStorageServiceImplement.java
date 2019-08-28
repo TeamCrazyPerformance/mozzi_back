@@ -1,4 +1,4 @@
-package com.tcp.mozzi.back.service.file;
+package com.tcp.mozzi.back.service.storage;
 
 import com.tcp.mozzi.back.config.FileStorageConfig;
 import com.tcp.mozzi.back.exception.FileNotFoundException;
@@ -47,7 +47,7 @@ public class FileStorageServiceImplement implements FileStorageService {
             return fileName;
 
         }catch(IOException e){
-            throw new FileStorageException("Could not store file " + fileName + ". Please try again.", e);
+            throw new FileStorageException("Could not store storage " + fileName + ". Please try again.", e);
         }
     }
 

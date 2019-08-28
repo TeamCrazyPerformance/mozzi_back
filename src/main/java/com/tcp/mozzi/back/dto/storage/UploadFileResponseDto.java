@@ -1,4 +1,4 @@
-package com.tcp.mozzi.back.dto.file;
+package com.tcp.mozzi.back.dto.storage;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

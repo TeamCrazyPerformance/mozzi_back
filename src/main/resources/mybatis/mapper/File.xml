@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tcp.mozzi.back.mapper.admin.AdminMapper">
+    <resultMap id="baseUserResultMap" type="com.tcp.mozzi.back.domain.user.User">
+        <id column="user_id" property="id" />
+        <result column="create_at" property="createdAt" />
+        <result column="modify_at" property="modifiedAt" />
+        <result column="student_number" property="studentNum" />
+        <result column="phone_number" property="phoneNum" />
+    </resultMap>
+
+    <insert id="insertFile">
+
+    </insert>
+
+    <select id="approveUser" resultType="boolean">
+
+    </select>
+
+    <select id="getWaitTotal" resultType="int">
+        SELECT count(*)
+        FROM user
+        WHERE status = 'wait'
+    </select>
+
+    <select id="selectWaitUsers" resultMap="baseUserResultMap">
+        SELECT user_id
+              ,role
+              ,create_at
+              ,modify_at
+              ,name
+              ,password
+              ,status
+              ,nickname
+              ,student_number
+              ,phone_number
+              ,email
+              ,birthday
+              ,allow
+        FROM user
+        WHERE status = 'wait'
+        limit #{page}, #{limit}
+    </select>
+
+</mapper>
