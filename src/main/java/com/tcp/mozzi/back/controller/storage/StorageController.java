@@ -1,6 +1,7 @@
 package com.tcp.mozzi.back.controller.storage;
 
 
+import com.tcp.mozzi.back.domain.storage.Storage;
 import com.tcp.mozzi.back.dto.storage.UploadFileResponseDto;
 import com.tcp.mozzi.back.service.storage.FileStorageService;
 import com.tcp.mozzi.back.util.JwtTokenUtil;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.List;
 
 @RequestMapping("/storage")
 @RestController
@@ -38,7 +40,7 @@ public class StorageController {
     @ApiOperation(value = "폴더 보기", notes = "해당 폴더에 있는 파일, 폴더를 확인합니다.")
     public ResponseEntity<?> getList(@PathVariable("dirId") String dirId, HttpServletRequest request){
         int userId = jwtTokenUtil.getIdFromToken(request.getHeader(tokenHeader));
-
+        List<Storage> storageList = fileStorageService.readStorage(Integer.parseInt(dirId), userId);
 
         return null;
     }
@@ -46,16 +48,21 @@ public class StorageController {
     @PostMapping("/")
     @ResponseBody
     @ApiOperation(value = "폴더 생성", notes = "폴더를 생성합니다.")
-    public ResponseEntity<?> createFolder(String curDirId, HttpServletRequest request){
+    public ResponseEntity<?> createFolder(String dirName, String curDirId, HttpServletRequest request){
 
-        return null;
+        return this.getList(curDirId, request);
     }
 
     @PostMapping("/uploadFile")
     @ResponseBody
     @ApiOperation(value = "파일 업로드", notes = "파일을 현재 폴더에 업로드합니다.")
-    public UploadFileResponseDto uploadFile(@RequestParam("storage") MultipartFile file, String curDirId){
-        String fileName = fileStorageService.storeFile(file);
+    public UploadFileResponseDto uploadFile(@RequestParam("storage") MultipartFile file, String curDirId, HttpServletRequest request){
+        final String token = request.getHeader(tokenHeader).substring(7);
+        int userId = jwtTokenUtil.getIdFromToken(token);
+        String userName = jwtTokenUtil.getUsernameFromToken(token);
+        String fileName = fileStorageService.storeFile(file, userName, Integer.parseInt(curDirId), userId);
+        System.out.println(request.getHeader(tokenHeader));
+        System.out.println(userId);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
@@ -68,8 +75,8 @@ public class StorageController {
     @GetMapping("/downloadFile/{fileName:.+}")
     @ResponseBody
     @ApiOperation(value = "파일 다운로드", notes = "파일을 다운로드합니다.")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request){
-        Resource resource = fileStorageService.loadFileAsResource(fileName);
+    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, int curDirId, HttpServletRequest request){
+        Resource resource = fileStorageService.loadFileAsResource(fileName, curDirId);
 
         String contentType = null;
         try{
