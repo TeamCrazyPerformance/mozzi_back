@@ -18,4 +18,37 @@
         value (#{authorId}, #{location}, now(), #{contentType}, #{isFile}, #{name}, #{hashName})
     </insert>
 
+    <insert id="insertDirectory">
+        INSERT INTO storage (author_id, location, create_at, content_type, is_file, name, hash_name)
+        value (#{authorId}, #{location}, now(), #{contentType}, #{isFile}, #{name}, #{hashName})
+    </insert>
+
+    <select id="selectStorageByFileNameAndLocation" resultMap="baseStorageResultMap">
+        SELECT storage_id
+        ,author_id
+        ,location
+        ,create_at
+        ,modify_at
+        ,content_type
+        ,is_file
+        ,name
+        ,hash_name
+        FROM storage
+        WHERE name=#{fileName}, location=#{location}
+    </select>
+
+    <select id="selectStorageByLocationAndUserId" resultMap="baseStorageResultMap">
+        SELECT storage_id
+        ,author_id
+        ,location
+        ,create_at
+        ,modify_at
+        ,content_type
+        ,is_file
+        ,name
+        ,hash_name
+        FROM storage
+        WHERE location=#{location}, author_id=#{userId}
+    </select>
+
 </mapper>

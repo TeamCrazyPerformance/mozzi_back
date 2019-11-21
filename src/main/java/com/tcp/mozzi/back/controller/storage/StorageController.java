@@ -2,6 +2,7 @@ package com.tcp.mozzi.back.controller.storage;
 
 
 import com.tcp.mozzi.back.domain.storage.Storage;
+import com.tcp.mozzi.back.dto.storage.ReadStorageResponseDto;
 import com.tcp.mozzi.back.dto.storage.UploadFileResponseDto;
 import com.tcp.mozzi.back.service.storage.FileStorageService;
 import com.tcp.mozzi.back.util.JwtTokenUtil;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,17 +40,24 @@ public class StorageController {
     @GetMapping("/{dirId}")
     @ResponseBody
     @ApiOperation(value = "폴더 보기", notes = "해당 폴더에 있는 파일, 폴더를 확인합니다.")
-    public ResponseEntity<?> getList(@PathVariable("dirId") String dirId, HttpServletRequest request){
-        int userId = jwtTokenUtil.getIdFromToken(request.getHeader(tokenHeader));
-        List<Storage> storageList = fileStorageService.readStorage(Integer.parseInt(dirId), userId);
+    public ResponseEntity<?> getList(@PathVariable("dirId") String dirIdString, HttpServletRequest request){
+        int userId = jwtTokenUtil.getIdFromToken(request.getHeader(tokenHeader).substring(7));
+        int dirId;
+        if(dirIdString.length() == 0){
+            dirId = 0;
+        }else{
+            dirId = Integer.parseInt(dirIdString);
+        }
 
-        return null;
+        return new ResponseEntity<>(new ReadStorageResponseDto(fileStorageService.readStorage(dirId,userId)), HttpStatus.OK);
     }
 
     @PostMapping("/")
     @ResponseBody
     @ApiOperation(value = "폴더 생성", notes = "폴더를 생성합니다.")
     public ResponseEntity<?> createFolder(String dirName, String curDirId, HttpServletRequest request){
+        int userId = jwtTokenUtil.getIdFromToken(request.getHeader(tokenHeader).substring(7));
+        fileStorageService.createStorage(dirName, Integer.parseInt(curDirId), userId);
 
         return this.getList(curDirId, request);
     }
