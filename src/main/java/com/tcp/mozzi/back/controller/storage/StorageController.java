@@ -84,8 +84,8 @@ public class StorageController {
     @GetMapping("/downloadFile/{fileName:.+}")
     @ResponseBody
     @ApiOperation(value = "파일 다운로드", notes = "파일을 다운로드합니다.")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, int curDirId, HttpServletRequest request){
-        Resource resource = fileStorageService.loadFileAsResource(fileName, curDirId);
+    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, String curDirId, HttpServletRequest request){
+        Resource resource = fileStorageService.loadFileAsResource(fileName, Integer.parseInt(curDirId));
 
         String contentType = null;
         try{

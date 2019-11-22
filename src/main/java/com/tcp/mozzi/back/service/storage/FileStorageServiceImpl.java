@@ -88,6 +88,7 @@ public class FileStorageServiceImpl implements FileStorageService {
     public Resource loadFileAsResource(String fileName, int location){
         try{
             String hashName = storageMapper.selectStorageByFileNameAndLocation(fileName, location).getHashName();
+            System.out.println(hashName);
             Path filePath = this.fileStorageLocation.resolve(hashName).normalize();
             Resource resource = new UrlResource(filePath.toUri());
             if(resource.exists())

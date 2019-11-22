@@ -6,10 +6,12 @@
     <resultMap id="baseStorageResultMap" type="com.tcp.mozzi.back.domain.storage.Storage">
         <id column="storage_id" property="storageId"/>
         <result column="author_id" property="authorId"/>
+        <result column="location" property="location"/>
         <result column="create_at" property="createAt"/>
         <result column="modify_at" property="modifyAt"/>
         <result column="content_type" property="contentType"/>
         <result column="is_file" property="isFile"/>
+        <result column="name" property="fileName"/>
         <result column="hash_name" property="hashName"/>
     </resultMap>
 
@@ -34,7 +36,7 @@
         ,name
         ,hash_name
         FROM storage
-        WHERE name=#{fileName}, location=#{location}
+        WHERE name=#{fileName} and location=#{location}
     </select>
 
     <select id="selectStorageByLocationAndUserId" resultMap="baseStorageResultMap">
@@ -48,7 +50,7 @@
         ,name
         ,hash_name
         FROM storage
-        WHERE location=#{location}, author_id=#{userId}
+        WHERE location=#{location} and author_id=#{userId}
     </select>
 
 </mapper>
