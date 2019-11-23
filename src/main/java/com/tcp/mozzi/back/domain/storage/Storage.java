@@ -34,9 +34,12 @@ public class Storage {
     }
 
     public Storage(Boolean isFile, String dirName, int curDirId, int authorId){
+        this.authorId = authorId;
+        this.location = curDirId;
+        createAt = LocalDateTime.now();
+        contentType = "directory";
         this.isFile = isFile;
         this.name = dirName;
-        this.location = curDirId;
-        this.authorId = authorId;
+        hashName = "directory : " + dirName;
     }
 }

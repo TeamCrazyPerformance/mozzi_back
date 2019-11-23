@@ -11,5 +11,5 @@ public interface FileStorageService {
     void createStorage(String dirName, int location, int userId);
     List<Storage> readStorage(int location, int userId);
     String storeFile(MultipartFile file, String userName, int curDirId, int userId);
-    Resource loadFileAsResource(String fileName, int location);
+    Resource loadFileAsResource(String fileName, int location, int userId);
 }

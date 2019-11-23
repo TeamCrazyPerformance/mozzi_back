@@ -85,10 +85,15 @@ public class FileStorageServiceImpl implements FileStorageService {
     }
 
     @Override
-    public Resource loadFileAsResource(String fileName, int location){
+    public Resource loadFileAsResource(String fileName, int location, int userId){
         try{
-            String hashName = storageMapper.selectStorageByFileNameAndLocation(fileName, location).getHashName();
-            System.out.println(hashName);
+            Storage file = storageMapper.selectStorageByFileNameAndLocation(fileName, location);
+            String hashName = file.getHashName();
+            int ownerId = file.getAuthorId();
+
+            if(userId != ownerId)
+                return null;
+
             Path filePath = this.fileStorageLocation.resolve(hashName).normalize();
             Resource resource = new UrlResource(filePath.toUri());
             if(resource.exists())

@@ -2,6 +2,7 @@ package com.tcp.mozzi.back.controller.storage;
 
 
 import com.tcp.mozzi.back.domain.storage.Storage;
+import com.tcp.mozzi.back.dto.DefaultResponseDto;
 import com.tcp.mozzi.back.dto.storage.ReadStorageResponseDto;
 import com.tcp.mozzi.back.dto.storage.UploadFileResponseDto;
 import com.tcp.mozzi.back.service.storage.FileStorageService;
@@ -9,6 +10,7 @@ import com.tcp.mozzi.back.util.JwtTokenUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -20,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.NotBlank;
 import java.io.IOException;
 import java.util.List;
 
@@ -84,8 +87,13 @@ public class StorageController {
     @GetMapping("/downloadFile/{fileName:.+}")
     @ResponseBody
     @ApiOperation(value = "파일 다운로드", notes = "파일을 다운로드합니다.")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, String curDirId, HttpServletRequest request){
-        Resource resource = fileStorageService.loadFileAsResource(fileName, Integer.parseInt(curDirId));
+    public ResponseEntity<?> downloadFile(@PathVariable String fileName, String curDirId, HttpServletRequest request){
+        final String token = request.getHeader(tokenHeader).substring(7);
+        int userId = jwtTokenUtil.getIdFromToken(token);
+        Resource resource = fileStorageService.loadFileAsResource(fileName, Integer.parseInt(curDirId), userId);
+
+        if(resource == null)
+            return new ResponseEntity<>(new DefaultResponseDto(false), HttpStatus.NOT_ACCEPTABLE);
 
         String contentType = null;
         try{

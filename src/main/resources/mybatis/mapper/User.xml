@@ -84,6 +84,6 @@
     </delete>
 
     <select id="isExistUserByName" resultType="boolean">
-        SELECT EXISTS(SELECT 1 FROM user WHERE name = #{name})
+        SELECT EXISTS(SELECT 1 FROM user WHERE id = #{name})
     </select>
 </mapper>
