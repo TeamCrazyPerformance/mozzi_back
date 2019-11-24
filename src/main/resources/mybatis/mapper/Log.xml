@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tcp.mozzi.back.mapper.log.LogMapper">
+    <resultMap id="baseLohResultMap" type="com.tcp.mozzi.back.domain.log.Log">
+        <id column="log_id" property="id" />
+        <result column="author_id" property="authorId"/>
+        <result column="create_at" property="createdAt" />
+    </resultMap>
+
+    <insert id="insertLog">
+        INSERT INTO log(author_id, create_at, domain, request, response)
+        value (#{authorId}, now(), #{domain}, #{request}, #{response})
+    </insert>
+
+    <select id="selectLog" resultMap="baseLogResultMap">
+        SELECT log_id
+        ,author_id
+        ,create_at
+        ,domain
+        ,request
+        ,response
+        FROM log
+    </select>
+
+    <select id="selectLogByUserId" resultMap="baseLogResultMap">
+        SELECT log_id
+        ,author_id
+        ,create_at
+        ,domain
+        ,request
+        ,response
+        FROM log
+        WHERE author_id=#{userId}
+    </select>
+
+</mapper>
