@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
 @RestController
-@Api(tags = "Authentication", description = "토큰 생성 및 Refresh")
+@Api(tags = "Authentication", description = "로그인 토큰 발급 및 갱신")
 public class AuthController {
 
     @Value("${jwt.header}")

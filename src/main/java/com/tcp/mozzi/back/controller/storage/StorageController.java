@@ -68,20 +68,18 @@ public class StorageController {
     @PostMapping("/uploadFile")
     @ResponseBody
     @ApiOperation(value = "파일 업로드", notes = "파일을 현재 폴더에 업로드합니다.")
-    public UploadFileResponseDto uploadFile(@RequestParam("storage") MultipartFile file, String curDirId, HttpServletRequest request){
+    public ResponseEntity<?> uploadFile(@RequestParam("storage") MultipartFile file, String curDirId, HttpServletRequest request){
         final String token = request.getHeader(tokenHeader).substring(7);
         int userId = jwtTokenUtil.getIdFromToken(token);
         String userName = jwtTokenUtil.getUsernameFromToken(token);
         String fileName = fileStorageService.storeFile(file, userName, Integer.parseInt(curDirId), userId);
-        System.out.println(request.getHeader(tokenHeader));
-        System.out.println(userId);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
                 .path(fileName)
                 .toUriString();
 
-        return new UploadFileResponseDto(fileName, fileDownloadUri, file.getContentType(), file.getSize());
+        return this.getList(curDirId, request);
     }
 
     @GetMapping("/downloadFile/{fileName:.+}")

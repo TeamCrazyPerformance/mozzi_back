@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+// Not Used
 @AllArgsConstructor
 @Getter
 @Setter

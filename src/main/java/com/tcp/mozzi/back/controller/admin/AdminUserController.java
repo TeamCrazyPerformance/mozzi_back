@@ -30,7 +30,7 @@ public class AdminUserController {
 
     @GetMapping("/user")
     @ResponseBody
-    @ApiOperation(value = "유저 목록 보기", notes = "가입신청을 한 유저의 목록을 불러옵니다.")
+    @ApiOperation(value = "대기 유저 목록 보기", notes = "가입신청을 한 유저의 목록을 불러옵니다.")
     public ResponseEntity<?> readWaitUser(HttpServletRequest request,
                                       @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                                       @RequestParam(value = "limit", required = false, defaultValue = "10") int limit){
