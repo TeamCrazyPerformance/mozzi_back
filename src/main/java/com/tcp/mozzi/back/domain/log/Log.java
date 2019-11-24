@@ -14,7 +14,8 @@ public class Log {
     private Integer logId;
     private Integer authorId;
     private LocalDateTime createAt;
-    private String domain;
+    private String controller;
+    private String httpMethod;
+    private String method;
     private String request;
-    private String response;
 }

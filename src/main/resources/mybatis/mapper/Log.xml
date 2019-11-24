@@ -3,24 +3,25 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.tcp.mozzi.back.mapper.log.LogMapper">
-    <resultMap id="baseLohResultMap" type="com.tcp.mozzi.back.domain.log.Log">
+    <resultMap id="baseLogResultMap" type="com.tcp.mozzi.back.domain.log.Log">
         <id column="log_id" property="id" />
         <result column="author_id" property="authorId"/>
         <result column="create_at" property="createdAt" />
     </resultMap>
 
     <insert id="insertLog">
-        INSERT INTO log(author_id, create_at, domain, request, response)
-        value (#{authorId}, now(), #{domain}, #{request}, #{response})
+        INSERT INTO log(author_id, create_at, controller, http_method, method, request)
+        value (#{authorId}, now(), #{controller}, #{httpMethod}, #{method}, #{request})
     </insert>
 
     <select id="selectLog" resultMap="baseLogResultMap">
         SELECT log_id
         ,author_id
         ,create_at
-        ,domain
+        ,controller
+        ,http_method
+        ,method
         ,request
-        ,response
         FROM log
     </select>
 
@@ -28,9 +29,10 @@
         SELECT log_id
         ,author_id
         ,create_at
-        ,domain
+        ,controller
+        ,http_method
+        ,method
         ,request
-        ,response
         FROM log
         WHERE author_id=#{userId}
     </select>

@@ -8,5 +8,6 @@
         <mapper resource="User.xml"/>
         <mapper resource="Admin.xml"/>
         <mapper resource="Storage.xml"/>
+        <mapper resource="Log.xml"/>
     </mappers>
 </configuration>

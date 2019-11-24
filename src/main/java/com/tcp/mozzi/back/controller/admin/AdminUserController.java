@@ -3,6 +3,7 @@ package com.tcp.mozzi.back.controller.admin;
 import com.tcp.mozzi.back.dto.DefaultResponseDto;
 import com.tcp.mozzi.back.dto.admin.ReadWaitUserResponseDto;
 import com.tcp.mozzi.back.service.admin.AdminService;
+import com.tcp.mozzi.back.service.log.LogService;
 import com.tcp.mozzi.back.util.JwtTokenUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,6 +27,9 @@ public class AdminUserController {
     private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
+    private LogService logService;
+
+    @Autowired
     private AdminService adminService;
 
     @GetMapping("/user")
@@ -38,6 +42,7 @@ public class AdminUserController {
         if(jwtTokenUtil.getRoleFromToken(token) == "USER"){
             return new ResponseEntity<>(new DefaultResponseDto(false), HttpStatus.UNAUTHORIZED);
         }
+
 
         return new ResponseEntity<>(new ReadWaitUserResponseDto(adminService.getWaitUsers((page-1)*limit, limit), page, adminService.totalWaitUsers()), HttpStatus.OK);
     }
