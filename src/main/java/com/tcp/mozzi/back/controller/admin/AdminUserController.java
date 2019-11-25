@@ -51,11 +51,14 @@ public class AdminUserController {
     @ResponseBody
     @ApiOperation(value = "가입 승인", notes = "가입 신청한 유저를 승인합니다.")
     public ResponseEntity<?> approveUser(HttpServletRequest request,
-                                         @PathVariable(value = "userId") int userId){
+                                         @PathVariable(value = "userId") int userId,
+                                         @RequestBody String body){
         final String token = request.getHeader(tokenHeader).substring(7);
         if(jwtTokenUtil.getRoleFromToken(token) == "USER"){
             return new ResponseEntity<>(new DefaultResponseDto(false), HttpStatus.UNAUTHORIZED);
         }
+
+        System.out.println(body);
 
 
         return new ResponseEntity<>(HttpStatus.OK);
