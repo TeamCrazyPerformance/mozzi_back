@@ -1,5 +1,6 @@
 package com.tcp.mozzi.back.controller.admin;
 
+import com.tcp.mozzi.back.domain.log.Log;
 import com.tcp.mozzi.back.dto.DefaultResponseDto;
 import com.tcp.mozzi.back.dto.admin.ReadWaitUserResponseDto;
 import com.tcp.mozzi.back.service.admin.AdminService;
@@ -43,6 +44,11 @@ public class AdminUserController {
             return new ResponseEntity<>(new DefaultResponseDto(false), HttpStatus.UNAUTHORIZED);
         }
 
+        logService.createLog(new Log(jwtTokenUtil.getIdFromToken(token),
+                "Admin",
+                request.getMethod(),
+                "readWaitUser",
+                "page : " + page + ", limit : " + limit));
 
         return new ResponseEntity<>(new ReadWaitUserResponseDto(adminService.getWaitUsers((page-1)*limit, limit), page, adminService.totalWaitUsers()), HttpStatus.OK);
     }

@@ -1,9 +1,11 @@
 package com.tcp.mozzi.back.controller.user;
 
+import com.tcp.mozzi.back.domain.log.Log;
 import com.tcp.mozzi.back.domain.user.JwtUser;
 import com.tcp.mozzi.back.dto.user.LoginRequestDto;
 import com.tcp.mozzi.back.dto.user.UserTokenResponseDto;
 import com.tcp.mozzi.back.exception.AuthenticationException;
+import com.tcp.mozzi.back.service.log.LogService;
 import com.tcp.mozzi.back.util.JwtTokenUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -38,17 +40,27 @@ public class AuthController {
     private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
+    private LogService logService;
+
+    @Autowired
     @Qualifier("jwtUserDetailsService")
     private UserDetailsService userDetailsService;
 
     @PostMapping("/user/login")
     @ResponseBody
     @ApiOperation(value = "로그인", notes = "아이디와 비밀번호로 토큰을 발급받습니다.")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody LoginRequestDto loginRequestDto) throws AuthenticationException {
+    public ResponseEntity<?> createAuthenticationToken(HttpServletRequest request, @RequestBody LoginRequestDto loginRequestDto) throws AuthenticationException {
         authenticate(loginRequestDto.getName(), loginRequestDto.getPassword());
 
         final JwtUser userDetails = (JwtUser) userDetailsService.loadUserByUsername(loginRequestDto.getName());
         final String token = jwtTokenUtil.generateToken(userDetails);
+
+        logService.createLog(new Log(jwtTokenUtil.getIdFromToken(token),
+                "Authentication",
+                request.getMethod(),
+                "createAuthenticationToken",
+                loginRequestDto.toString()));
+
 
         return new ResponseEntity<>(new UserTokenResponseDto(token, jwtTokenUtil.getRoleFromToken(token)), HttpStatus.OK);
     }

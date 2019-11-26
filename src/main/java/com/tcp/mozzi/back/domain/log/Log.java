@@ -18,4 +18,12 @@ public class Log {
     private String httpMethod;
     private String method;
     private String request;
+
+    public Log(int authorId, String controller, String httpMethod, String method, String request){
+        this.authorId = authorId;
+        this.controller = controller;
+        this.httpMethod = httpMethod;
+        this.method = method;
+        this.request = request;
+    }
 }
