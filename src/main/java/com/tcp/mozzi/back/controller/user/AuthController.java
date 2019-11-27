@@ -61,6 +61,8 @@ public class AuthController {
                 "createAuthenticationToken",
                 loginRequestDto.toString()));
 
+        //TODO : get request body
+
 
         return new ResponseEntity<>(new UserTokenResponseDto(token, jwtTokenUtil.getRoleFromToken(token)), HttpStatus.OK);
     }
