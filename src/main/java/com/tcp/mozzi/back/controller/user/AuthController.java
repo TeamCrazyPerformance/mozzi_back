@@ -61,8 +61,6 @@ public class AuthController {
                 "createAuthenticationToken",
                 loginRequestDto.toString()));
 
-        //asdf
-
         return new ResponseEntity<>(new UserTokenResponseDto(token, jwtTokenUtil.getRoleFromToken(token)), HttpStatus.OK);
     }
 
