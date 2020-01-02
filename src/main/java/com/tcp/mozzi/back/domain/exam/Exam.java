@@ -1,5 +1,7 @@
 package com.tcp.mozzi.back.domain.exam;
 
+import com.tcp.mozzi.back.dto.exam.CreateExamDto;
+import com.tcp.mozzi.back.dto.exam.GetExamListDto;
 import lombok.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -30,5 +32,16 @@ public class Exam {
         this.name = name;
         this.professor = professor;
         this.content = content;
+    }
+
+    public Exam(CreateExamDto examDto){
+        this.year = examDto.getYear();
+        this.major = examDto.getMajor();
+        this.grade = examDto.getGrade();
+        this.semester = examDto.getSemester();
+        this.term = examDto.getTerm();
+        this.name = examDto.getName();
+        this.professor = examDto.getProfessor();
+        this.content = examDto.getContent();
     }
 }

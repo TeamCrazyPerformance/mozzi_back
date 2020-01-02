@@ -1,21 +1,16 @@
 package com.tcp.mozzi.back.dto.exam;
 
 import com.tcp.mozzi.back.domain.exam.Exam;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.tcp.mozzi.back.dto.DefaultResponseDto;
+import lombok.*;
 
 import java.util.List;
 
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
 @NoArgsConstructor
-public class GetExamListDto {
+public class GetExamListDto extends DefaultResponseDto {
 
-    private String success;
     private List<Exam> exams;
-    private int page;
-    private int count;
-    private int total;
 
 }

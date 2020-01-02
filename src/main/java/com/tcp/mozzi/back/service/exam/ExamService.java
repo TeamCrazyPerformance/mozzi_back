@@ -1,7 +1,13 @@
 package com.tcp.mozzi.back.service.exam;
 
+import com.tcp.mozzi.back.domain.exam.Exam;
 import com.tcp.mozzi.back.dto.exam.GetExamListDto;
 
+import java.util.List;
+
 public interface ExamService {
-    GetExamListDto getExamList(int page, int limit);
+    List<Exam> getExamList(int page, int limit);
+    void addExam(Exam exam);
+    void updateExam(Exam exam);
+    void deleteExam(Integer id);
 }
