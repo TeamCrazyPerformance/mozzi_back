@@ -19,7 +19,7 @@
         value (#{author}, #{create_at}, #{year}, #{major}, #{grade}, #{semester}, #{term}, #{name}, #{professor}, #{content})
     </insert>
 
-    <update id="modifyExam">
+    <update id="updateExam">
         update exam
         set author = #{author}, year = #{year}, major = #{major}, grade = #{grade}, semester = #{semester}, term = #{term}, name = #{name}, professor = #{professor}, content = #{content}
         where exam_id = #{examId}

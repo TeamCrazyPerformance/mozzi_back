@@ -15,7 +15,7 @@ public interface ExamMapper {
     List<Exam> getExamList(@Param("page") int page, @Param("limit") int limit);
     int getCount();
     void createExam(Exam exam);
-    void modifyExam(Exam exam);
-    List<Map<String, Object>> searchExam();
-    void deleteExam();
+    void updateExam(Exam exam);
+    List<Exam> searchExam();
+    void deleteExam(int id);
 }

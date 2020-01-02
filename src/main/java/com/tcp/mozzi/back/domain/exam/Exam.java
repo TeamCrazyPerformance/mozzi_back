@@ -1,7 +1,7 @@
 package com.tcp.mozzi.back.domain.exam;
 
 import com.tcp.mozzi.back.dto.exam.CreateExamDto;
-import com.tcp.mozzi.back.dto.exam.GetExamListDto;
+import com.tcp.mozzi.back.dto.exam.UpdateExamDto;
 import lombok.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -10,8 +10,8 @@ import lombok.*;
 @Setter
 public class Exam {
 
-    private int exam_id;
-    private int author;
+    private int examId;
+    private int authorId;
     private String year;
     private String major;
     private int grade;
@@ -23,7 +23,7 @@ public class Exam {
 
     @Builder
     public Exam(int author, String year, String major, int grade, int semester, String term, String name, String professor, String content){
-        this.author = author;
+        this.authorId = author;
         this.year = year;
         this.major = major;
         this.grade = grade;
@@ -34,14 +34,27 @@ public class Exam {
         this.content = content;
     }
 
-    public Exam(CreateExamDto examDto){
-        this.year = examDto.getYear();
-        this.major = examDto.getMajor();
-        this.grade = examDto.getGrade();
-        this.semester = examDto.getSemester();
-        this.term = examDto.getTerm();
-        this.name = examDto.getName();
-        this.professor = examDto.getProfessor();
-        this.content = examDto.getContent();
+    public Exam(CreateExamDto createExamDto){
+        this.year = createExamDto.getYear();
+        this.major = createExamDto.getMajor();
+        this.grade = createExamDto.getGrade();
+        this.semester = createExamDto.getSemester();
+        this.term = createExamDto.getTerm();
+        this.name = createExamDto.getName();
+        this.professor = createExamDto.getProfessor();
+        this.content = createExamDto.getContent();
+    }
+
+    public Exam(UpdateExamDto updateExamDto){
+        this.examId = updateExamDto.getExamId();
+        this.authorId = updateExamDto.getAuthorId();
+        this.year = updateExamDto.getYear();
+        this.major = updateExamDto.getMajor();
+        this.grade = updateExamDto.getGrade();
+        this.semester = updateExamDto.getSemester();
+        this.term = updateExamDto.getTerm();
+        this.name = updateExamDto.getName();
+        this.professor = updateExamDto.getProfessor();
+        this.content = updateExamDto.getContent();
     }
 }

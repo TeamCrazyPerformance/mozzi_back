@@ -25,11 +25,11 @@ public class ExamServiceImpl implements ExamService {
 
     @Override
     public void updateExam(Exam exam) {
-
+        examMapper.updateExam(exam);
     }
 
     @Override
     public void deleteExam(Integer id) {
-
+        examMapper.deleteExam(id);
     }
 }
