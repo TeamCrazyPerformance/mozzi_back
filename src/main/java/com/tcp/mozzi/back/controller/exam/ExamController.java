@@ -66,7 +66,7 @@ public class ExamController {
             return new ResponseEntity<>(new DefaultResponseDto(false), HttpStatus.UNAUTHORIZED);
         }
 
-        examService.updateExam(new Exam());
+        examService.updateExam(new Exam(updateExamDto));
 
         return null;
     }
