@@ -65,6 +65,7 @@ public class ExamController {
         if(userId != updateExamDto.getAuthorId()){
             return new ResponseEntity<>(new DefaultResponseDto(false), HttpStatus.UNAUTHORIZED);
         }
+        
 
         examService.updateExam(new Exam(updateExamDto));
 
