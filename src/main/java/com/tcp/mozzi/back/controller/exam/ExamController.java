@@ -65,7 +65,7 @@ public class ExamController {
         if(userId != updateExamDto.getAuthorId()){
             return new ResponseEntity<>(new DefaultResponseDto(false), HttpStatus.UNAUTHORIZED);
         }
-        
+
 
         examService.updateExam(new Exam(updateExamDto));
 
@@ -74,13 +74,15 @@ public class ExamController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ApiOperation(value = "문제 삭제", notes = "지정된 기출문제를 삭제합니다.")
-    public void deleteExam(HttpServletRequest request){
+    public ResponseEntity<?> deleteExam(HttpServletRequest request){
 
+        return null;
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     @ApiOperation(value = "문제 탐색", notes = "기출문제를 탐색합니다.")
-    public void searchExam(){
+    public ResponseEntity<?> searchExam(){
 
+        return null;
     }
 }
