@@ -76,7 +76,7 @@ public class ExamController {
     @ApiOperation(value = "문제 삭제", notes = "지정된 기출문제를 삭제합니다.")
     public ResponseEntity<?> deleteExam(HttpServletRequest request){
 
-        return null;
+        return new ResponseEntity<>(new DefaultResponseDto(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
