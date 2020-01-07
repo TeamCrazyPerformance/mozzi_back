@@ -3,6 +3,7 @@ package com.tcp.mozzi.back.controller.exam;
 import com.tcp.mozzi.back.domain.exam.Exam;
 import com.tcp.mozzi.back.dto.DefaultResponseDto;
 import com.tcp.mozzi.back.dto.exam.CreateExamDto;
+import com.tcp.mozzi.back.dto.exam.DeleteExamDto;
 import com.tcp.mozzi.back.dto.exam.GetExamListDto;
 import com.tcp.mozzi.back.dto.exam.UpdateExamDto;
 import com.tcp.mozzi.back.service.exam.ExamService;
@@ -55,31 +56,39 @@ public class ExamController {
     public ResponseEntity<?> createExam(@RequestBody CreateExamDto exam){
         examService.addExam(new Exam(exam));
 
-        return new ResponseEntity<>(new DefaultResponseDto(), HttpStatus.CREATED);
+        return this.getExamList(1, 10);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @ResponseBody
     @ApiOperation(value = "문제 수정", notes = "지정된 기출문제를 수정합니다.")
     public ResponseEntity<?> modifyExam(@PathVariable("id")String id, HttpServletRequest request, @RequestBody UpdateExamDto updateExamDto){
         int userId = jwtTokenUtil.getIdFromToken(request.getHeader(tokenHeader).substring(7));
-        if(userId != updateExamDto.getAuthorId()){
+        if(userId != updateExamDto.getAuthorId()) {
             return new ResponseEntity<>(new DefaultResponseDto(false), HttpStatus.UNAUTHORIZED);
         }
 
-
         examService.updateExam(new Exam(updateExamDto));
 
-        return null;
+        return new ResponseEntity<>(new DefaultResponseDto(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
     @ApiOperation(value = "문제 삭제", notes = "지정된 기출문제를 삭제합니다.")
-    public ResponseEntity<?> deleteExam(HttpServletRequest request){
+    public ResponseEntity<?> deleteExam(@PathVariable("id")String id, HttpServletRequest request, @RequestBody DeleteExamDto deleteExamDto){
+        int userId = jwtTokenUtil.getIdFromToken(request.getHeader(tokenHeader).substring(7));
+        if(userId != deleteExamDto.getAuthorId()){
+            return new ResponseEntity<>(new DefaultResponseDto(false), HttpStatus.UNAUTHORIZED);
+        }
+
+        examService.deleteExam(deleteExamDto.getExamId());
 
         return new ResponseEntity<>(new DefaultResponseDto(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
+    @ResponseBody
     @ApiOperation(value = "문제 탐색", notes = "기출문제를 탐색합니다.")
     public ResponseEntity<?> searchExam(){
 
