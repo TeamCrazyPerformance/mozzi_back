@@ -3,9 +3,11 @@ package com.tcp.mozzi.back.service.exam;
 import com.tcp.mozzi.back.domain.exam.Exam;
 import com.tcp.mozzi.back.mapper.exam.ExamMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ExamServiceImpl implements ExamService {
 
     private ExamMapper examMapper;
