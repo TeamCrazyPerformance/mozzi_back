@@ -52,6 +52,7 @@ public class StorageController {
             dirId = Integer.parseInt(dirIdString);
         }
 
+        
         return new ResponseEntity<>(new ReadStorageResponseDto(fileStorageService.readStorage(dirId,userId)), HttpStatus.OK);
     }
 
