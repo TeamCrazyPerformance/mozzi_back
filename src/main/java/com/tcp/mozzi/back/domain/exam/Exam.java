@@ -9,6 +9,7 @@ import lombok.*;
 @Getter
 @Setter
 public class Exam {
+
     private int examId;
     private int authorId;
     private String year;
