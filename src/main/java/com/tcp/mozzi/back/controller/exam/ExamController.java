@@ -90,7 +90,11 @@ public class ExamController {
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "문제 탐색", notes = "기출문제를 탐색합니다.")
-    public ResponseEntity<?> searchExam(){
+    public ResponseEntity<?> searchExam(@RequestParam("year")String year,
+                                        @RequestParam("name")String name,
+                                        @RequestParam("professor")String professor,
+                                        @RequestParam("limit")String limit,
+                                        @RequestParam("page")String page){
 
         return null;
     }
