@@ -56,6 +56,10 @@ public class RegisterUserRequestDto {
     @JsonProperty("birthday")
     private String birthday;
 
+    @NotBlank(message = "'school' is required.")
+    @JsonProperty("school")
+    private String school;
+
     public User toEntity() {
         User user = new User();
         user.setId(this.getId());
@@ -74,6 +78,7 @@ public class RegisterUserRequestDto {
 
         }
         user.setBirthday(birthday);
+        user.setSchool(this.getSchool());
         return user;
     }
 }

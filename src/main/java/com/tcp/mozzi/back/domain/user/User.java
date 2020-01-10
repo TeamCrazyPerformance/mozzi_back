@@ -29,6 +29,7 @@ public class User {
     private String email;
     private Date birthday;
     private String allow;
+    private String school;
 
     public enum UserStatus {
         wait,
@@ -41,7 +42,6 @@ public class User {
     }
 
     public void updateUser(UpdateUserRequestDto updateUser){
-        this.password = updateUser.getPassword();
         this.nickname = updateUser.getNickname();
         this.phoneNum = updateUser.getPhone_number();
         this.email = updateUser.getEmail();

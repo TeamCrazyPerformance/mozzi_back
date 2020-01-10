@@ -1,6 +1,7 @@
 package com.tcp.mozzi.back.service.user;
 
 import com.tcp.mozzi.back.domain.user.User;
+import com.tcp.mozzi.back.dto.user.UpdateUserPasswordRequestDto;
 import com.tcp.mozzi.back.mapper.user.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -43,10 +44,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(User user) {
-        String encryptedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encryptedPassword);
         userMapper.updateUser(user);
     }
+
+    @Override
+    public void updateUserPassword(User user, String newPassword) {
+        String encryptedPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(encryptedPassword);
+        userMapper.updateUserPassword(user.getUserId(), encryptedPassword);
+    }
+
+    @Override
+    public boolean isValidUser(User user, String curPassword) { return userMapper.isValidUser(user.getUserId(), curPassword); }
 
     @Override
     public void deleteUserById(Integer id) {
@@ -59,18 +68,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User userDetailById(Integer id) {
+    public User userDetailById(Integer id, String role) {
         final String closed = "PRIVATE";
         User user = userMapper.selectUserByUserId(id);
+        if(role.equals(user.getRole().toString())){
+            return user;
+        }
         StringTokenizer allow = new StringTokenizer(user.getAllow(), ",");
         String temp;
         while(allow.hasMoreTokens()){
             temp = allow.nextToken().trim();
             switch (temp){
-                case "student_number":
+                case "studentNumber":
                     user.setStudentNum(closed);
                     continue;
-                case "phone_number":
+                case "phoneNumber":
                     user.setPhoneNum(closed);
                     continue;
                 case "email":

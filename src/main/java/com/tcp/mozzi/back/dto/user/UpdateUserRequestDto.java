@@ -10,13 +10,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UpdateUserRequestDto {
 
-    @JsonProperty("password")
-    private String password;
-
     @JsonProperty("nickname")
     private String nickname;
 
-    @JsonProperty("phone_number")
+    @JsonProperty("phoneNumber")
     private String phone_number;
 
     @JsonProperty("email")

@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -15,26 +15,31 @@ import java.util.Date;
 @AllArgsConstructor
 public class UserDetailResponseDto extends DefaultResponseDto {
 
-    @JsonProperty("nickname")
+    private User.UserRole role;
+    private String id;
+    private String name;
     private String nickname;
-
-    @JsonProperty("student_number")
-    private String student_number;
-
-    @JsonProperty("phone_number")
-    private String phone_number;
-
-    @JsonProperty("email")
+    private String school;
+    private String major;
+    private String studentNumber;
+    private String phoneNumber;
     private String email;
-
-    @JsonProperty("birthday")
     private Date birthday;
+    private LocalDateTime createAt;
+    private String allow;
 
     public UserDetailResponseDto(User user){
+        this.role = user.getRole();
+        this.id = user.getId();
+        this.name = user.getName();
+        this.school = user.getSchool();
+        this.major = user.getMajor();
         this.nickname = user.getNickname();
-        this.student_number = user.getStudentNum();
-        this.phone_number = user.getPhoneNum();
+        this.studentNumber = user.getStudentNum();
+        this.phoneNumber = user.getPhoneNum();
         this.email = user.getEmail();
         this.birthday = user.getBirthday();
+        this.createAt = user.getCreatedAt();
+        this.allow = user.getAllow();
     }
 }

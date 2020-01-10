@@ -1,5 +1,6 @@
 package com.tcp.mozzi.back.dto.storage;
 
+import com.tcp.mozzi.back.dto.DefaultResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class UploadFileResponseDto {
+public class UploadFileResponseDto extends DefaultResponseDto {
     private String fileName;
     private String fileDownloadUri;
     private String fileType;

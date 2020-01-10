@@ -50,13 +50,14 @@ public class UserController {
         return new CheckUserResponseDto(!userService.isExistUserByName(requestDto.getName()));
     }
 
-    @DeleteMapping("/")
+    @DeleteMapping("")
     @ResponseBody
     @ApiOperation(value = "회원 탈퇴", notes = "회원 탈퇴 신청을 합니다.")
     public ResponseEntity<?> deleteUser(HttpServletRequest httpRequest){
         final String token = httpRequest.getHeader(tokenHeader).substring(7);
         System.out.println(jwtTokenUtil.getIdFromToken(token));
-//        userService.getUserById(Integer.parseInt(userId));
+
+        //userService.getUserById(Integer.parseInt(userId));
 
         return new ResponseEntity<>(new DefaultResponseDto(false), HttpStatus.GONE);
     }
@@ -64,11 +65,25 @@ public class UserController {
     @PutMapping("")
     @ResponseBody
     @ApiOperation(value = "정보 수정", notes = "유저 정보를 수정합니다.")
-    public ResponseEntity<?> updateUser(HttpServletRequest httpRequest, @Valid @RequestBody UpdateUserRequestDto requestDto){
+    public ResponseEntity<?> updateUser(HttpServletRequest httpRequest, @Valid @RequestBody UpdateUserRequestDto updateUserRequestDto){
         final String token = httpRequest.getHeader(tokenHeader).substring(7);
         User user = userService.getUserById(jwtTokenUtil.getIdFromToken(token));
-        user.updateUser(requestDto);
+        user.updateUser(updateUserRequestDto);
         userService.updateUser(user);
+
+        return new ResponseEntity<>(new DefaultResponseDto(), HttpStatus.OK);
+    }
+
+    @PutMapping("/password")
+    @ResponseBody
+    @ApiOperation(value = "비밀번호 변경", notes = "비밀번호를 변경합니다.")
+    public ResponseEntity<?> updateUserPassword(HttpServletRequest httpRequest, @Valid @RequestBody UpdateUserPasswordRequestDto updateUserPasswordRequestDto){
+        final String token = httpRequest.getHeader(tokenHeader).substring(7);
+        User user = userService.getUserById(jwtTokenUtil.getIdFromToken(token));
+        if(userService.isValidUser(user, updateUserPasswordRequestDto.getCurPassword())){
+            return new ResponseEntity<>(new DefaultResponseDto(false), HttpStatus.BAD_REQUEST);
+        }
+        userService.updateUserPassword(user, updateUserPasswordRequestDto.getNewPassword());
 
         return new ResponseEntity<>(new DefaultResponseDto(), HttpStatus.OK);
     }
@@ -76,8 +91,12 @@ public class UserController {
     @GetMapping("/{id}")
     @ResponseBody
     @ApiOperation(value = "정보 보기", notes = "해당 유저의 공개된 정보를 확인합니다.")
-    public ResponseEntity<?> userDetail(@PathVariable("id") String id){
-        return new ResponseEntity<>(new UserDetailResponseDto(userService.userDetailById(Integer.parseInt(id))), HttpStatus.OK);
+    public ResponseEntity<?> userDetail(HttpServletRequest httpRequest, @PathVariable("id") String id){
+        final String token = httpRequest.getHeader(tokenHeader).substring(7);
+        User user = userService.getUserById(jwtTokenUtil.getIdFromToken(token));
+
+        return new ResponseEntity<>(new UserDetailResponseDto(userService.userDetailById(Integer.parseInt(id), user.getRole().toString())), HttpStatus.OK);
     }
+
 
 }

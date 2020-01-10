@@ -16,6 +16,8 @@ public interface UserMapper {
     List<User> selectUsers();
     void insertUser(User user);
     void updateUser(User user);
+    void updateUserPassword(@Param("userId")Integer userId, @Param("newPassword")String newPassword);
     void deleteUserById(Integer id);
+    boolean isValidUser(@Param("userId")Integer userId, @Param("curPassword")String curPassword);
     boolean isExistUserByName(String name);
 }

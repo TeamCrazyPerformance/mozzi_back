@@ -20,8 +20,10 @@
               ,password
               ,name
               ,status
+              ,school
               ,nickname
               ,student_number
+              ,major
               ,phone_number
               ,email
               ,birthday
@@ -39,8 +41,10 @@
               ,password
               ,name
               ,status
+              ,school
               ,nickname
               ,student_number
+              ,major
               ,phone_number
               ,email
               ,birthday
@@ -58,8 +62,10 @@
               ,password
               ,name
               ,status
+              ,school
               ,nickname
               ,student_number
+              ,major
               ,phone_number
               ,email
               ,birthday
@@ -68,13 +74,19 @@
     </select>
 
     <insert id="insertUser" >
-        INSERT INTO user (role, create_at, modify_at, id, password, name, status, nickname, student_number, major, phone_number, email, birthday)
-        value ('user', now(), now(), #{id}, #{password}, #{name}, 'wait', #{nickname}, #{studentNum}, #{phoneNum}, #{major}, #{email}, #{birthday})
+        INSERT INTO user (role, create_at, modify_at, id, password, name, school, status, nickname, student_number, major, phone_number, email, birthday)
+        value ('user', now(), now(), #{id}, #{password}, #{name}, #{school}, 'wait', #{nickname}, #{studentNum}, #{phoneNum}, #{major}, #{email}, #{birthday})
     </insert>
 
     <update id="updateUser">
         UPDATE user
-        SET modify_at = now(), id = #{id}, password = #{password}, name = #{name}, status = #{status}, nickname = #{nickname}, student_number = #{studentNum}, phone_number = #{phoneNum}, email = #{email}, birthday = #{birthday}, allow = #{allow}
+        SET modify_at = now(), nickname = #{nickname}, phone_number = #{phoneNum}, email = #{email}, allow = #{allow}
+        WHERE user_id = #{userId}
+    </update>
+
+    <update id="updateUserPassword">
+        UPDATE user
+        SET modify_at = now(), password = #{newPassword}
         WHERE user_id = #{userId}
     </update>
 
@@ -82,6 +94,10 @@
         DELETE FROM user
         WHERE user_id = #{userId}
     </delete>
+
+    <select id="isValidUser" resultType="boolean">
+        SELECT EXISTS(SELECT 1 FROM user WHERE user_id = #{userId} AND password = #{curPassword})
+    </select>
 
     <select id="isExistUserByName" resultType="boolean">
         SELECT EXISTS(SELECT 1 FROM user WHERE id = #{name})
