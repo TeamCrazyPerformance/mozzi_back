@@ -15,10 +15,15 @@
 
     </select>
 
-    <select id="getWaitTotal" resultType="int">
+    <select id="getTotalWaitUsers" resultType="int">
         SELECT count(*)
         FROM user
         WHERE status = 'wait'
+    </select>
+
+    <select id="getTotalWaitUsers" resultType="int">
+        SELECT count(*)
+        FROM user
     </select>
 
     <select id="selectWaitUsers" resultMap="baseUserResultMap">
@@ -26,17 +31,41 @@
               ,role
               ,create_at
               ,modify_at
-              ,name
+              ,id
               ,password
+              ,name
               ,status
+              ,school
               ,nickname
               ,student_number
+              ,major
               ,phone_number
               ,email
               ,birthday
               ,allow
         FROM user
         WHERE status = 'wait'
+        limit #{page}, #{limit}
+    </select>
+
+    <select id="selectAllUsers" resultMap="baseUserResultMap">
+        SELECT user_id
+              ,role
+              ,create_at
+              ,modify_at
+              ,id
+              ,password
+              ,name
+              ,status
+              ,school
+              ,nickname
+              ,student_number
+              ,major
+              ,phone_number
+              ,email
+              ,birthday
+              ,allow
+        FROM user
         limit #{page}, #{limit}
     </select>
 

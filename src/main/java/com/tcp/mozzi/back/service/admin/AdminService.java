@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface AdminService {
     List<User> getWaitUsers(int page, int limit);
+    List<User> getAllUsers(int page, int limit);
     int totalWaitUsers();
+    int totalUsers();
 }

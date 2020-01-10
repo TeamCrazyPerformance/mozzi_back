@@ -11,6 +11,8 @@ import java.util.List;
 @Repository
 public interface AdminMapper {
     List<User> selectWaitUsers(@Param("page") int page, @Param("limit") int limit);
-    int getWaitTotal();
+    List<User> selectAllUsers(@Param("page") int page, @Param("limit") int limit);
+    int getTotalWaitUsers();
+    int getTotalUsers();
     boolean approveUser();
 }
