@@ -34,4 +34,9 @@ public class ExamServiceImpl implements ExamService {
     public void deleteExam(Integer id) {
         examMapper.deleteExam(id);
     }
+
+    @Override
+    public int getTotalExam() {
+        return examMapper.getTotalExam();
+    }
 }

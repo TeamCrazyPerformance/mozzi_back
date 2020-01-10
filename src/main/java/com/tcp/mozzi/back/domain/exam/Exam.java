@@ -1,7 +1,7 @@
 package com.tcp.mozzi.back.domain.exam;
 
-import com.tcp.mozzi.back.dto.exam.CreateExamDto;
-import com.tcp.mozzi.back.dto.exam.UpdateExamDto;
+import com.tcp.mozzi.back.dto.exam.CreateExamRequestDto;
+import com.tcp.mozzi.back.dto.exam.UpdateExamRequestDto;
 import lombok.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -34,18 +34,18 @@ public class Exam {
         this.content = content;
     }
 
-    public Exam(CreateExamDto createExamDto){
-        this.year = createExamDto.getYear();
-        this.major = createExamDto.getMajor();
-        this.grade = createExamDto.getGrade();
-        this.semester = createExamDto.getSemester();
-        this.term = createExamDto.getTerm();
-        this.name = createExamDto.getName();
-        this.professor = createExamDto.getProfessor();
-        this.content = createExamDto.getContent();
+    public Exam(CreateExamRequestDto createExamRequestDto){
+        this.year = createExamRequestDto.getYear();
+        this.major = createExamRequestDto.getMajor();
+        this.grade = createExamRequestDto.getGrade();
+        this.semester = createExamRequestDto.getSemester();
+        this.term = createExamRequestDto.getTerm();
+        this.name = createExamRequestDto.getName();
+        this.professor = createExamRequestDto.getProfessor();
+        this.content = createExamRequestDto.getContent();
     }
 
-    public Exam(UpdateExamDto updateExamDto){
+    public Exam(UpdateExamRequestDto updateExamDto){
         this.examId = updateExamDto.getExamId();
         this.authorId = updateExamDto.getAuthorId();
         this.year = updateExamDto.getYear();

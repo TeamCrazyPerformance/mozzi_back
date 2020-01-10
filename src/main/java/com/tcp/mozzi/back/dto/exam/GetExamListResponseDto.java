@@ -9,8 +9,10 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetExamListDto extends DefaultResponseDto {
+public class GetExamListResponseDto extends DefaultResponseDto {
 
     private List<Exam> exams;
+    private int page;
+    private int total;
 
 }

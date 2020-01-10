@@ -6,7 +6,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class CreateExamDto {
+public class CreateExamRequestDto {
     private String year;
     private String major;
     private int grade;
