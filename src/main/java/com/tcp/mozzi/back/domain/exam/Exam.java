@@ -1,17 +1,15 @@
 package com.tcp.mozzi.back.domain.exam;
 
-import com.tcp.mozzi.back.dto.exam.CreateExamRequestDto;
-import com.tcp.mozzi.back.dto.exam.UpdateExamRequestDto;
 import lombok.*;
-import org.apache.ibatis.type.MappedTypes;
 
 import java.time.LocalDateTime;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Getter
 @Setter
+@Builder
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class Exam {
 
     private int examId;

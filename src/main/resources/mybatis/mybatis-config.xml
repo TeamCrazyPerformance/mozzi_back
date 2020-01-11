@@ -4,10 +4,10 @@
 <configuration>
     <mappers>
         <mapper resource="userExample.xml"/>
-        <mapper resource="Exam.xml"/>
         <mapper resource="User.xml"/>
         <mapper resource="Admin.xml"/>
         <mapper resource="Storage.xml"/>
         <mapper resource="Log.xml"/>
+        <mapper resource="Exam.xml"/>
     </mappers>
 </configuration>

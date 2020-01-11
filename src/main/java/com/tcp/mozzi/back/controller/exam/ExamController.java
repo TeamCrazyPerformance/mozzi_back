@@ -72,11 +72,15 @@ public class ExamController {
     public ResponseEntity<?> modifyExam(@PathVariable("examId")String examId, HttpServletRequest request, @RequestBody UpdateExamRequestDto updateExamDto){
         int userId = jwtTokenUtil.getIdFromToken(request.getHeader(tokenHeader).substring(7));
         Exam exam = examService.getExamByExamId(Integer.parseInt(examId));
+        System.out.println("User : " + userId);
+        System.out.println("Author : " + exam.getAuthorId());
+        System.out.println("Exma : " + exam.toString());
         if(userId != exam.getAuthorId()) {
             return new ResponseEntity<>(new DefaultResponseDto(false), HttpStatus.UNAUTHORIZED);
         }
 
         examService.updateExam(Exam.builder()
+                                .examId(Integer.parseInt(examId))
                                 .year(updateExamDto.getYear())
                                 .major(updateExamDto.getMajor())
                                 .grade(updateExamDto.getGrade())

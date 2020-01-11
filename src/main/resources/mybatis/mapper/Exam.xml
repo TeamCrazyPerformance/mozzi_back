@@ -3,8 +3,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.tcp.mozzi.back.mapper.exam.ExamMapper">
-    <resultMap id="examResultMap" type="com.tcp.mozzi.back.domain.exam.Exam">
-        <id column="exam_id" property="examId"/>
+    <resultMap id="baseExamResultMap" type="com.tcp.mozzi.back.domain.exam.Exam">
+        <id column="exam_id" property="examId" />
         <result column="author_id" property="authorId"/>
         <result column="create_at" property="createAt" />
         <result column="modify_at" property="modifyAt" />
@@ -15,7 +15,7 @@
         from exam
     </select>
 
-    <select id="getExamByExamId" resultMap="examResultMap">
+    <select id="getExamByExamId" resultMap="baseExamResultMap">
         SELECT exam_id
             ,author_id
             ,create_at
@@ -32,8 +32,8 @@
         WHERE exam_id = #{examId}
     </select>
 
-    <select id="getExamList" resultType="examResultMap">
-        select exam_id
+    <select id="getExamList" resultMap="baseExamResultMap">
+        SELECT exam_id
             ,author_id
             ,create_at
             ,modify_at
@@ -49,21 +49,21 @@
         limit #{page}, #{limit}
     </select>
 
-    <select id="getExamByYearOrNameOrProfessor" resultMap="examResultMap">
+    <select id="getExamByYearOrNameOrProfessor" resultMap="baseExamResultMap">
         SELECT exam_id
-        ,author_id
-        ,create_at
-        ,modify_at
-        ,year
-        ,semester
-        ,term
-        ,name
-        ,professor
-        ,grade
-        ,major
-        ,content
+            ,author_id
+            ,create_at
+            ,modify_at
+            ,year
+            ,semester
+            ,term
+            ,name
+            ,professor
+            ,grade
+            ,major
+            ,content
         FROM exam
-        WHERE year = #{year} | name = #{name} | professor = #{professor}
+        WHERE year = #{year} or name = #{name} or professor = #{professor}
         limit #{page}, #{limit}
     </select>
 
@@ -82,4 +82,5 @@
         delete from exam
         where exam_id = #{examId}
     </delete>
+
 </mapper>
