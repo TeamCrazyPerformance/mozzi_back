@@ -14,8 +14,8 @@ public final class JwtUserFactory {
                 user.getPassword(),
                 user.getStatus().equals(User.UserStatus.authorized),
                 new ArrayList<>(), //TODO: mapToGrantedAuthorities(user.getAuthorities())
-                user.getCreatedAt(),
-                user.getModifiedAt());
+                user.getCreateAt(),
+                user.getModifyAt());
     }
 
 //    private static List<GrantedAuthority> mapToGrantedAuthorities(List<Authority> authorities) {

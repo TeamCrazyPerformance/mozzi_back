@@ -10,9 +10,9 @@ import java.util.List;
 @Mapper
 @Repository
 public interface AdminMapper {
-    List<User> selectWaitUsers(@Param("page") int page, @Param("limit") int limit);
-    List<User> selectAllUsers(@Param("page") int page, @Param("limit") int limit);
-    int getTotalWaitUsers();
-    int getTotalUsers();
+    List<User> selectWaitUser(@Param("page") int page, @Param("limit") int limit);
+    List<User> selectAllUser(@Param("page") int page, @Param("limit") int limit);
+    int getTotalWaitUser();
+    int getTotalUser();
     boolean approveUser();
 }

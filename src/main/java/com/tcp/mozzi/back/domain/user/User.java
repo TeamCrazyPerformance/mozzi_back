@@ -16,12 +16,13 @@ public class User {
 
     private Integer userId;
     private UserRole role;
-    private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
+    private LocalDateTime createAt;
+    private LocalDateTime modifyAt;
     private String id;
     private String password;
     private String name;
     private UserStatus status;
+    private String school;
     private String nickname;
     private String studentNum;
     private String major;
@@ -29,7 +30,6 @@ public class User {
     private String email;
     private Date birthday;
     private String allow;
-    private String school;
 
     public enum UserStatus {
         wait,

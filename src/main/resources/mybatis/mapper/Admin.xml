@@ -15,13 +15,13 @@
 
     </select>
 
-    <select id="getTotalWaitUsers" resultType="int">
+    <select id="getTotalWaitUser" resultType="int">
         SELECT count(*)
         FROM user
         WHERE status = 'wait'
     </select>
 
-    <select id="getTotalWaitUsers" resultType="int">
+    <select id="getTotalUser" resultType="int">
         SELECT count(*)
         FROM user
     </select>

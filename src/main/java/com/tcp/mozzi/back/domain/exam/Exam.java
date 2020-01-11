@@ -3,26 +3,31 @@ package com.tcp.mozzi.back.domain.exam;
 import com.tcp.mozzi.back.dto.exam.CreateExamRequestDto;
 import com.tcp.mozzi.back.dto.exam.UpdateExamRequestDto;
 import lombok.*;
+import org.apache.ibatis.type.MappedTypes;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+import java.time.LocalDateTime;
+
+@NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Getter
 @Setter
 public class Exam {
 
     private int examId;
     private int authorId;
+    private LocalDateTime createAt;
+    private LocalDateTime modifyAt;
     private String year;
-    private String major;
-    private int grade;
-    private int semester;
+    private String semester;
     private String term;
     private String name;
     private String professor;
+    private int grade;
+    private String major;
     private String content;
 
-    @Builder
-    public Exam(int author, String year, String major, int grade, int semester, String term, String name, String professor, String content){
+    public Exam(int author, String year, String major, int grade, String semester, String term, String name, String professor, String content){
         this.authorId = author;
         this.year = year;
         this.major = major;
@@ -32,29 +37,5 @@ public class Exam {
         this.name = name;
         this.professor = professor;
         this.content = content;
-    }
-
-    public Exam(CreateExamRequestDto createExamRequestDto){
-        this.year = createExamRequestDto.getYear();
-        this.major = createExamRequestDto.getMajor();
-        this.grade = createExamRequestDto.getGrade();
-        this.semester = createExamRequestDto.getSemester();
-        this.term = createExamRequestDto.getTerm();
-        this.name = createExamRequestDto.getName();
-        this.professor = createExamRequestDto.getProfessor();
-        this.content = createExamRequestDto.getContent();
-    }
-
-    public Exam(UpdateExamRequestDto updateExamDto){
-        this.examId = updateExamDto.getExamId();
-        this.authorId = updateExamDto.getAuthorId();
-        this.year = updateExamDto.getYear();
-        this.major = updateExamDto.getMajor();
-        this.grade = updateExamDto.getGrade();
-        this.semester = updateExamDto.getSemester();
-        this.term = updateExamDto.getTerm();
-        this.name = updateExamDto.getName();
-        this.professor = updateExamDto.getProfessor();
-        this.content = updateExamDto.getContent();
     }
 }

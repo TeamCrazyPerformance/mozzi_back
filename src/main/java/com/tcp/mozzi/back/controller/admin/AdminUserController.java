@@ -50,7 +50,7 @@ public class AdminUserController {
                 "readWaitUser",
                 "page : " + page + ", limit : " + limit));
 
-        return new ResponseEntity<>(new ReadWaitUserResponseDto(adminService.getWaitUsers((page-1)*limit, limit), page, adminService.totalWaitUsers()), HttpStatus.OK);
+        return new ResponseEntity<>(new ReadWaitUserResponseDto(adminService.getWaitUsers((page-1)*limit, limit), page, adminService.totalWaitUser()), HttpStatus.OK);
     }
 
     @GetMapping("/user")
@@ -64,7 +64,7 @@ public class AdminUserController {
             return new ResponseEntity<>(new DefaultResponseDto(false), HttpStatus.UNAUTHORIZED);
         }
 
-        return new ResponseEntity<>(new ReadWaitUserResponseDto(adminService.getAllUsers((page-1)*limit, limit), page, adminService.totalUsers()), HttpStatus.OK);
+        return new ResponseEntity<>(new ReadWaitUserResponseDto(adminService.getAllUsers((page-1)*limit, limit), page, adminService.totalUser()), HttpStatus.OK);
     }
 
     @PutMapping("/approve/{userId}")
@@ -80,6 +80,6 @@ public class AdminUserController {
 
         System.out.println(body);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(new DefaultResponseDto(), HttpStatus.OK);
     }
 }

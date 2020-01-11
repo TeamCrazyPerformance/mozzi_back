@@ -10,12 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class UpdateExamRequestDto {
-    private int examId;
-    private int authorId;
     private String year;
     private String major;
     private int grade;
-    private int semester;
+    private String semester;
     private String term;
     private String name;
     private String professor;

@@ -5,8 +5,8 @@
 <mapper namespace="com.tcp.mozzi.back.mapper.user.UserMapper">
     <resultMap id="baseUserResultMap" type="com.tcp.mozzi.back.domain.user.User">
         <id column="user_id" property="userId" />
-        <result column="create_at" property="createdAt" />
-        <result column="modify_at" property="modifiedAt" />
+        <result column="create_at" property="createAt" />
+        <result column="modify_at" property="modifyAt" />
         <result column="student_number" property="studentNum" />
         <result column="phone_number" property="phoneNum" />
     </resultMap>

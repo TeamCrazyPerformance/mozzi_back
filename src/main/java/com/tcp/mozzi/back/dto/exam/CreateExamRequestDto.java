@@ -10,7 +10,7 @@ public class CreateExamRequestDto {
     private String year;
     private String major;
     private int grade;
-    private int semester;
+    private String semester;
     private String term;
     private String name;
     private String professor;

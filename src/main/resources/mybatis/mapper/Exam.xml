@@ -3,36 +3,83 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.tcp.mozzi.back.mapper.exam.ExamMapper">
+    <resultMap id="examResultMap" type="com.tcp.mozzi.back.domain.exam.Exam">
+        <id column="exam_id" property="examId"/>
+        <result column="author_id" property="authorId"/>
+        <result column="create_at" property="createAt" />
+        <result column="modify_at" property="modifyAt" />
+    </resultMap>
+
     <select id="getTotalExam" resultType="int">
         select count(*)
         from exam
     </select>
 
-    <select id="getExamList" resultType="com.tcp.mozzi.back.domain.exam.Exam">
-        select *
+    <select id="getExamByExamId" resultMap="examResultMap">
+        SELECT exam_id
+            ,author_id
+            ,create_at
+            ,modify_at
+            ,year
+            ,semester
+            ,term
+            ,name
+            ,professor
+            ,grade
+            ,major
+            ,content
+        FROM exam
+        WHERE exam_id = #{examId}
+    </select>
+
+    <select id="getExamList" resultType="examResultMap">
+        select exam_id
+            ,author_id
+            ,create_at
+            ,modify_at
+            ,year
+            ,semester
+            ,term
+            ,name
+            ,professor
+            ,grade
+            ,major
+            ,content
         from exam
         limit #{page}, #{limit}
     </select>
 
+    <select id="getExamByYearOrNameOrProfessor" resultMap="examResultMap">
+        SELECT exam_id
+        ,author_id
+        ,create_at
+        ,modify_at
+        ,year
+        ,semester
+        ,term
+        ,name
+        ,professor
+        ,grade
+        ,major
+        ,content
+        FROM exam
+        WHERE year = #{year} | name = #{name} | professor = #{professor}
+        limit #{page}, #{limit}
+    </select>
+
     <insert id="createExam" >
-        insert into (exam, author, create_at, year, major, grade, semester, term, name, professor, content)
-        value (#{author}, #{create_at}, #{year}, #{major}, #{grade}, #{semester}, #{term}, #{name}, #{professor}, #{content})
+        insert into exam (author_id, create_at, modify_at, year, major, grade, semester, term, name, professor, content)
+        value (#{authorId}, now(), now(), #{year}, #{major}, #{grade}, #{semester}, #{term}, #{name}, #{professor}, #{content})
     </insert>
 
     <update id="updateExam">
         update exam
-        set author = #{author}, year = #{year}, major = #{major}, grade = #{grade}, semester = #{semester}, term = #{term}, name = #{name}, professor = #{professor}, content = #{content}
+        set modify_at = now(), year = #{year}, major = #{major}, grade = #{grade}, semester = #{semester}, term = #{term}, name = #{name}, professor = #{professor}, content = #{content}
         where exam_id = #{examId}
     </update>
 
-    <select id="searchExam" resultType="java.util.HashMap">
-        select *
-        from exam
-        where professor = #{professor} | name = #{name}
-    </select>
-
     <delete id="deleteExam">
         delete from exam
-        where exam_id = #{exam_id}
+        where exam_id = #{examId}
     </delete>
 </mapper>

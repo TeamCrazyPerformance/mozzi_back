@@ -39,7 +39,7 @@ public class UserDetailResponseDto extends DefaultResponseDto {
         this.phoneNumber = user.getPhoneNum();
         this.email = user.getEmail();
         this.birthday = user.getBirthday();
-        this.createAt = user.getCreatedAt();
+        this.createAt = user.getCreateAt();
         this.allow = user.getAllow();
     }
 }

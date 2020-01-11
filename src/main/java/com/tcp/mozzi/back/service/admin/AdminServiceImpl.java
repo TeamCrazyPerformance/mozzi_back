@@ -19,21 +19,21 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public List<User> getWaitUsers(int page, int limit) {
-        return adminMapper.selectWaitUsers(page, limit);
+        return adminMapper.selectWaitUser(page, limit);
     }
 
     @Override
     public List<User> getAllUsers(int page, int limit) {
-        return adminMapper.selectAllUsers(page, limit);
+        return adminMapper.selectAllUser(page, limit);
     }
 
     @Override
-    public int totalWaitUsers() {
-        return adminMapper.getTotalWaitUsers();
+    public int totalWaitUser() {
+        return adminMapper.getTotalWaitUser();
     }
 
     @Override
-    public int totalUsers() {
-        return adminMapper.getTotalUsers();
+    public int totalUser() {
+        return adminMapper.getTotalUser();
     }
 }
