@@ -37,7 +37,7 @@ public class ExamController {
     @Autowired
     private LogService logService;
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping("")
     @ResponseBody
     @ApiOperation(value = "문제 보기", notes = "등록되어 있는 기출문제를 불러옵니다.")
     public ResponseEntity<?> getExamList(
@@ -47,7 +47,7 @@ public class ExamController {
         return new ResponseEntity<>(new GetExamListResponseDto(examService.getExamList((page-1)*limit, limit), page, examService.getTotalExam()), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     @ApiOperation(value = "문제 등록", notes = "기출문제를 등록합니다.")
@@ -66,7 +66,7 @@ public class ExamController {
         return new ResponseEntity<>(new DefaultResponseDto(), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/{examId}", method = RequestMethod.PUT)
+    @PutMapping("/{examId}")
     @ResponseBody
     @ApiOperation(value = "문제 수정", notes = "지정된 기출문제를 수정합니다.")
     public ResponseEntity<?> modifyExam(@PathVariable("examId")String examId, HttpServletRequest request, @RequestBody UpdateExamRequestDto updateExamDto){
@@ -94,7 +94,7 @@ public class ExamController {
         return new ResponseEntity<>(new DefaultResponseDto(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{examId}", method = RequestMethod.DELETE)
+    @DeleteMapping("/{examId}")
     @ResponseBody
     @ApiOperation(value = "문제 삭제", notes = "지정된 기출문제를 삭제합니다.")
     public ResponseEntity<?> deleteExam(@PathVariable("examId")String examId, HttpServletRequest request){
@@ -109,7 +109,7 @@ public class ExamController {
         return new ResponseEntity<>(new DefaultResponseDto(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    @GetMapping("/search")
     @ResponseBody
     @ApiOperation(value = "문제 탐색", notes = "기출문제를 탐색합니다.")
     public ResponseEntity<?> searchExam(@RequestParam(value = "year", required = false, defaultValue = "0")String year,
