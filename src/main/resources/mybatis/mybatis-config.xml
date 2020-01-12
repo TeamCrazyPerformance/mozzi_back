@@ -9,5 +9,7 @@
         <mapper resource="Storage.xml"/>
         <mapper resource="Log.xml"/>
         <mapper resource="Exam.xml"/>
+        <mapper resource="Project.xml"/>
+        <mapper resource="Issue.xml"/>
     </mappers>
 </configuration>
