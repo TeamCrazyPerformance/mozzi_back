@@ -4,6 +4,50 @@
 
 <mapper namespace="com.tcp.mozzi.back.mapper.project.ProjectMapper">
     <resultMap id="baseProjectResultMapper" type="com.tcp.mozzi.back.domain.project.Project">
+        <id column="project_id" property="projectId"/>
+        <result column="author_id" property="authorId"/>
+        <result column="create_at" property="createAt"/>
+        <result column="modify_at" property="modifyAt"/>
+        <result column="join_request" property="joinRequest"/>
     </resultMap>
+
+    <select id="getTotalProject" resultType="int">
+        SELECT count(*)
+        FROM project
+    </select>
+
+    <select id="readAllProject" resultMap="baseProjectResultMap">
+        SELECT *
+        FROM project
+        limit #{page}, #{limit}
+    </select>
+
+    <select id="readProjectByProjectId" resultMap="baseProjectResultMap">
+        SELECT *
+        FROM project
+        WHERE project_id = #{projectId}
+    </select>
+
+    <insert id="createProject">
+        INSERT INTO project (author_id, create_at, modify_at, title, content, qualification, member)
+        VALUES (#{authorId}, now(), now(), #{title}, #{content}, #{qualification}, #{authorId})
+    </insert>
+
+    <update id="updateProject">
+        UPDATE project
+        SET modify_at = now(), title = #{title}, content = #{content}, qualification = #{qualification}
+        WHERE project_id = #{projectId}
+    </update>
+
+    <delete id="deleteProjectByProjectId">
+        DELETE FROM project
+        WHERE project_id = #{projectId}
+    </delete>
+
+    <update id="updateProjecetJoinRequest">
+        UPDATE project
+        SET join_request = #{joinRequest}
+        WHERE project_id = #{projectId}
+    </update>
 
 </mapper>

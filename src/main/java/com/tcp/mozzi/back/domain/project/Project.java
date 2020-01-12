@@ -20,4 +20,5 @@ public class Project {
     private String content;
     private String qualification;
     private String member;
+    private String joinRequest;
 }

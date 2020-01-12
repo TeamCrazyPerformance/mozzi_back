@@ -4,6 +4,18 @@
 
 <mapper namespace="com.tcp.mozzi.back.mapper.project.IssueMapper">
     <resultMap id="baseIssueResultMap" type="com.tcp.mozzi.back.domain.project.Issue">
+        <id column="issue_id" property="issueId"/>
+        <result column="project_id" property="projectId"/>
+        <result column="author_id" property="authorId"/>
+        <result column="create_at" property="createAt"/>
+        <result column="modify_at" property="modifyAt"/>
+    </resultMap>
+    <resultMap id="baseIssueCommentMap" type="com.tcp.mozzi.back.domain.project.IssueComment">
+        <id column="issue_comment_id" property="issueCommentId"/>
+        <result column="issue_id" property="issueId"/>
+        <result column="author_id" property="authorId"/>
+        <result column="create_at" property="createAt"/>
+        <result column="modify_at" property="modifyAt"/>
     </resultMap>
 
 </mapper>
