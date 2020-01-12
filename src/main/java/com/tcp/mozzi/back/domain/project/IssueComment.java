@@ -10,13 +10,12 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Issue {
+public class IssueComment {
 
+    private int issueCommentId;
     private int issueId;
-    private int projectId;
     private int authorId;
     private LocalDateTime createAt;
     private LocalDateTime modifyAt;
-    private String title;
     private String content;
 }
