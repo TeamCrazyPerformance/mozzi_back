@@ -60,6 +60,8 @@ public class ProjectServiceImpl implements ProjectService {
                 project.getJoinRequest()
                 .concat(",")
                 .concat(Integer.toString(userId)));
+
+
         
         return true;
     }
