@@ -61,7 +61,6 @@ public class ProjectServiceImpl implements ProjectService {
                 .concat(",")
                 .concat(Integer.toString(userId)));
 
-
         
         return true;
     }
