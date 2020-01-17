@@ -3,10 +3,7 @@ package com.tcp.mozzi.back.controller.project;
 
 import com.tcp.mozzi.back.domain.project.Project;
 import com.tcp.mozzi.back.dto.DefaultResponseDto;
-import com.tcp.mozzi.back.dto.project.CreateProjectRequestDto;
-import com.tcp.mozzi.back.dto.project.ReadProjectDetailResponseDto;
-import com.tcp.mozzi.back.dto.project.ReadProjectResponseDto;
-import com.tcp.mozzi.back.dto.project.UpdateProjectRequestDto;
+import com.tcp.mozzi.back.dto.project.*;
 import com.tcp.mozzi.back.service.log.LogService;
 import com.tcp.mozzi.back.service.project.ProjectService;
 import com.tcp.mozzi.back.service.user.UserService;
@@ -17,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,9 +37,6 @@ public class ProjectController {
 
     @Autowired
     private ProjectService projectService;
-
-    @Autowired
-    private UserService userService;
 
     @GetMapping("")
     @ResponseBody
@@ -82,9 +77,9 @@ public class ProjectController {
     @ResponseBody
     @ApiOperation(value = "프로젝트 수정", notes = "프로젝트를 수정합니다.")
     public ResponseEntity<?> updateProject(HttpServletRequest request, @PathVariable("projectId") int projectId, @RequestBody UpdateProjectRequestDto updateProjectRequestDto){
-        int userId = jwtTokenUtil.getIdFromToken(request.getHeader(tokenHeader).substring(7));
+        int authorId = jwtTokenUtil.getIdFromToken(request.getHeader(tokenHeader).substring(7));
         Project project = projectService.readProjectByProjectId(projectId);
-        if(userId != project.getAuthorId()){
+        if(authorId != project.getAuthorId()){
             return new ResponseEntity<>(new DefaultResponseDto(false), HttpStatus.UNAUTHORIZED);
         }
         projectService.updateProject(Project.builder()
@@ -100,9 +95,9 @@ public class ProjectController {
     @ResponseBody
     @ApiOperation(value = "프로젝트 삭제", notes = "프로젝트를 삭제합니다.")
     public ResponseEntity<?> deleteProject(HttpServletRequest request, @PathVariable("projectId") int projectId){
-        int userId = jwtTokenUtil.getIdFromToken(request.getHeader(tokenHeader).substring(7));
+        int authorId = jwtTokenUtil.getIdFromToken(request.getHeader(tokenHeader).substring(7));
         Project project = projectService.readProjectByProjectId(projectId);
-        if(userId != project.getAuthorId()){
+        if(authorId != project.getAuthorId()){
             return new ResponseEntity<>(new DefaultResponseDto(false), HttpStatus.UNAUTHORIZED);
         }
         projectService.deleteProjectByProjectId(projectId);
@@ -126,19 +121,26 @@ public class ProjectController {
     @ResponseBody
     @ApiOperation(value = "프로젝트 신청멤버 보기", notes = "프로젝트에 가입신청 한 멤버를 불러옵니다.")
     public ResponseEntity<?> readJoinMember(HttpServletRequest request, @PathVariable("projectId") int projectId){
-        int userId = jwtTokenUtil.getIdFromToken(request.getHeader(tokenHeader).substring(7));
+        int authorId = jwtTokenUtil.getIdFromToken(request.getHeader(tokenHeader).substring(7));
         Project project = projectService.readProjectByProjectId(projectId);
-        if(userId != project.getAuthorId()){
+        if(authorId != project.getAuthorId()){
             return new ResponseEntity<>(new DefaultResponseDto(false), HttpStatus.UNAUTHORIZED);
         }
 
-        return new ResponseEntity<>(new DefaultResponseDto(false), HttpStatus.OK);
+        return new ResponseEntity<>(new ReadJoinMemberResponseDto(projectService.readJoinRequest(project.getJoinRequest())), HttpStatus.OK);
     }
 
     @PutMapping("/{projectId}/approve/{userId}")
     @ResponseBody
     @ApiOperation(value = "프로젝트 가입승인", notes = "프로젝트 가입을 승인합니다.")
-    public ResponseEntity<?> approveJoinProject(){
+    public ResponseEntity<?> approveJoinProject(HttpServletRequest request,
+                                                @PathVariable("projectId") int projectId,
+                                                @PathVariable("userId") int userId){
+        int authorId = jwtTokenUtil.getIdFromToken(request.getHeader(tokenHeader).substring(7));
+        Project project = projectService.readProjectByProjectId(projectId);
+        if(authorId != project.getAuthorId()){
+            return new ResponseEntity<>(new DefaultResponseDto(false), HttpStatus.UNAUTHORIZED);
+        }
 
         return new ResponseEntity<>(new DefaultResponseDto(false), HttpStatus.OK);
     }

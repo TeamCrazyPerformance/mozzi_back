@@ -1,11 +1,14 @@
 package com.tcp.mozzi.back.service.project;
 
+import com.tcp.mozzi.back.domain.project.JoinRequestUser;
 import com.tcp.mozzi.back.domain.project.Project;
+import com.tcp.mozzi.back.domain.user.User;
 import com.tcp.mozzi.back.mapper.project.ProjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -63,4 +66,15 @@ public class ProjectServiceImpl implements ProjectService {
 
         return true;
     }
+
+    @Override
+    public List<JoinRequestUser> readJoinRequest(String joinRequest) {
+        List<JoinRequestUser> returnContainer = new ArrayList<>();
+        StringTokenizer joinMember = new StringTokenizer(joinRequest, ",");
+        while(joinMember.hasMoreTokens()){
+
+        }
+        return null;
+    }
+
 }
