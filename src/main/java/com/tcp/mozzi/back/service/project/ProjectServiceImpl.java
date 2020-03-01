@@ -74,8 +74,6 @@ public class ProjectServiceImpl implements ProjectService {
         while(joinMember.hasMoreTokens()){
 
         }
-
-
         return null;
     }
 
